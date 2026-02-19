@@ -5,169 +5,313 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Colorado CC</title>
 
-<!-- Inter font (closest to gg sans legally available) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Inter font (closest to gg sans) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
-* {
-  box-sizing: border-box;
+*{
+box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  color: white;
+body{
 
-  /* Light blue → dark gradient */
-  background:
-    linear-gradient(
-      180deg,
-      #8ed8ff 0%,
-      #4fa3ff 18%,
-      #1b3a73 45%,
-      #0b1835 70%,
-      #050b1a 100%
-    );
+margin:0;
+font-family:"Inter",sans-serif;
+color:white;
+overflow-x:hidden;
 
-  min-height: 100vh;
+
+/* Professional gradient */
+background:
+radial-gradient(1200px 800px at 50% -200px, rgba(140,210,255,0.55), transparent 60%),
+radial-gradient(900px 600px at 80% 0%, rgba(80,150,255,0.35), transparent 60%),
+linear-gradient(
+180deg,
+#9edcff 0%,
+#4c8dff 20%,
+#1c356b 45%,
+#0a1733 70%,
+#040912 100%
+);
+
+min-height:100vh;
+
 }
 
-/* NAVBAR */
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 48px;
+/* NAV */
+
+.nav{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:28px 48px;
+
 }
 
-.logo {
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: -0.02em;
+.logo{
+
+font-weight:800;
+font-size:20px;
+letter-spacing:-0.02em;
+
 }
 
-.nav-links {
-  display: flex;
-  gap: 28px;
+.nav-links{
+
+display:flex;
+gap:28px;
+
 }
 
-.nav-links a {
-  color: rgba(255,255,255,0.85);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
+.nav-links a{
+
+color:rgba(255,255,255,0.85);
+text-decoration:none;
+font-weight:600;
+font-size:15px;
+
 }
 
-.nav-links a:hover {
-  color: white;
+.nav-links a:hover{
+
+color:white;
+
 }
 
-/* HERO SECTION */
 
-.hero {
-  max-width: 900px;
-  margin: 140px auto 0 auto;
-  padding: 0 24px;
-  text-align: center;
+/* HERO */
+
+.hero{
+
+max-width:950px;
+margin:140px auto 0 auto;
+padding:0 24px;
+text-align:center;
+
+animation:fadeUp 0.9s ease-out;
+
 }
 
-.hero h1 {
-  font-size: 72px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin-bottom: 28px;
+
+/* MASSIVE HEAVY TITLE */
+
+.hero h1{
+
+font-size:clamp(90px, 12vw, 160px);
+
+font-weight:900;
+
+letter-spacing:-0.06em;
+
+line-height:0.9;
+
+margin-bottom:28px;
+
 }
 
-/* Paragraph block aligned cleanly */
-.hero p {
-  font-size: 19px;
-  line-height: 1.75;
-  color: rgba(255,255,255,0.85);
 
-  text-align: justify;
-  text-align-last: center;
+/* PARAGRAPH */
 
-  margin-bottom: 18px;
+.hero p{
+
+font-size:19px;
+line-height:1.75;
+
+color:rgba(255,255,255,0.85);
+
+text-align:justify;
+text-align-last:center;
+
+margin-bottom:18px;
+
 }
 
-/* Buttons */
 
-.buttons {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  gap: 18px;
+/* BUTTONS */
+
+.buttons{
+
+margin-top:40px;
+display:flex;
+justify-content:center;
+gap:18px;
+
 }
 
-.btn {
-  padding: 14px 22px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08);
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
+.btn{
+
+padding:14px 24px;
+
+border-radius:999px;
+
+border:1px solid rgba(255,255,255,0.18);
+
+background:rgba(255,255,255,0.06);
+
+color:white;
+
+font-weight:700;
+font-size:14px;
+
+text-decoration:none;
+
+backdrop-filter:blur(8px);
+
+transition:all .2s ease;
+
 }
 
-.btn:hover {
-  background: rgba(255,255,255,0.15);
+.btn:hover{
+
+background:rgba(255,255,255,0.14);
+transform:translateY(-2px);
+
 }
 
-/* Responsive */
 
-@media (max-width: 800px) {
+/* FLOATING EGG */
 
-  .hero h1 {
-    font-size: 42px;
-  }
+.egg{
 
-  .hero {
-    margin-top: 80px;
-  }
+position:absolute;
 
-  .hero p {
-    text-align: left;
-  }
+right:8%;
+top:35%;
+
+width:140px;
+height:180px;
+
+background:linear-gradient(
+180deg,
+#8ed8ff,
+#3a7cff
+);
+
+border-radius:70% 70% 60% 60%;
+
+filter:blur(0.5px);
+
+animation:floatEgg 6s ease-in-out infinite;
+
+box-shadow:
+0 40px 80px rgba(0,0,0,0.35);
+
+}
+
+
+/* FLOAT ANIMATION */
+
+@keyframes floatEgg{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+
+/* FADE IN */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+.hero{
+
+margin-top:80px;
+
+}
+
+.hero h1{
+
+font-size:72px;
+
+}
+
+.hero p{
+
+text-align:left;
+
+}
+
+.egg{
+
+display:none;
+
+}
 
 }
 
 </style>
+
 </head>
 <body>
 
+
 <div class="nav">
 
-  <div class="logo">
-    Colorado CC
-  </div>
+<div class="logo">
+Colorado CC
+</div>
 
-  <div class="nav-links">
-    <a href="#">Guidelines</a>
-    <a href="#">Support</a>
-    <a href="#">Tickets</a>
-    <a href="#">Discover</a>
-  </div>
+<div class="nav-links">
+
+<a href="#">Guidelines</a>
+<a href="#">Support</a>
+<a href="#">Tickets</a>
+<a href="#">Discover</a>
+
+</div>
 
 </div>
 
 
 <div class="hero">
 
-<h1>COLORADO CC — WELCOME</h1>
+<h1>WELCOME</h1>
 
 <p>
+
 Colorado Roleplay is built to bring people together through immersive storytelling, shared scenes, and collaborative world-building. Every member uses the server differently—some stick to tight-knit friend groups, others participate in large public RP spaces, and many move fluidly between both. Because of that, expectations of privacy naturally shift depending on where you are in the server.
+
 </p>
 
 <p>
+
 Across Colorado Roleplay, we design our systems, rules, and staff practices with privacy and transparency in mind. We want you to always understand how your information, your characters, and your interactions are handled.
+
 </p>
+
 
 <div class="buttons">
 
@@ -178,6 +322,10 @@ Across Colorado Roleplay, we design our systems, rules, and staff practices with
 </div>
 
 </div>
+
+
+<div class="egg"></div>
+
 
 </body>
 </html>
