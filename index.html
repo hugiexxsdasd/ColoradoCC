@@ -15,19 +15,14 @@
     --rose:#d85b86;
     --rose2:#b64672;
 
-    --bgTop:#000000;
-    --bgMid:#0a0a0f;
-    --bgBot:#121218;
+    /* one consistent black (no two-tone bands) */
+    --bg:#0a0a0f;
 
     --text: rgba(255,255,255,.92);
     --muted: rgba(255,240,246,.82);
     --muted2: rgba(255,240,246,.68);
 
-    --line: rgba(249,144,166,.22);
-    --line2: rgba(249,144,166,.14);
-
-    --panel: rgba(16,16,22,.92);
-    --panel2: rgba(255,255,255,.03);
+    --line: rgba(249,144,166,.18);
   }
 
   *{ box-sizing:border-box; }
@@ -39,18 +34,19 @@
     color:var(--text);
     overflow-x:hidden;
 
-    background:
-      radial-gradient(1200px 600px at 50% -220px, rgba(249,144,166,.14), transparent 60%),
-      radial-gradient(900px 520px at 15% 18%, rgba(249,144,166,.08), transparent 60%),
-      radial-gradient(900px 520px at 85% 22%, rgba(249,144,166,.06), transparent 62%),
-      linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
+    /* single consistent background */
+    background: var(--bg);
   }
 
+  /* subtle texture (still one base black) */
   body::before{
     content:"";
     position:fixed; inset:0;
     pointer-events:none;
     background:
+      radial-gradient(900px 500px at 50% -200px, rgba(249,144,166,.12), transparent 60%),
+      radial-gradient(900px 500px at 15% 18%, rgba(249,144,166,.06), transparent 60%),
+      radial-gradient(900px 500px at 85% 22%, rgba(249,144,166,.05), transparent 62%),
       repeating-linear-gradient(
         180deg,
         rgba(255,255,255,.05) 0px,
@@ -58,7 +54,7 @@
         transparent 2px,
         transparent 8px
       );
-    opacity:.10;
+    opacity:.12;
     mix-blend-mode:soft-light;
   }
 
@@ -70,7 +66,7 @@
     width:100%;
     padding:18px 22px;
     backdrop-filter: blur(10px);
-    background: linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.18));
+    background: rgba(10,10,15,.72);
     border-bottom:1px solid rgba(255,255,255,.06);
   }
 
@@ -156,7 +152,7 @@
     transform:scaleX(0);
     transform-origin:center;
     opacity:.9;
-    filter: drop-shadow(0 0 10px rgba(249,144,166,.65));
+    filter: drop-shadow(0 0 10px rgba(249,144,166,.55));
     transition:.18s ease;
   }
   .nav-item:hover .nav-link::after{ transform:scaleX(1); }
@@ -172,7 +168,7 @@
     background: linear-gradient(180deg, var(--pink), var(--rose));
     box-shadow:
       0 18px 45px rgba(0,0,0,.45),
-      0 0 28px rgba(249,144,166,.22);
+      0 0 28px rgba(249,144,166,.18);
     border:1px solid rgba(255,255,255,.10);
     transition:.18s ease;
     white-space:nowrap;
@@ -181,10 +177,10 @@
     transform: translateY(-1px);
     box-shadow:
       0 22px 55px rgba(0,0,0,.5),
-      0 0 36px rgba(249,144,166,.28);
+      0 0 36px rgba(249,144,166,.22);
   }
 
-  /* Dropdown like your image: pink panel + "Resources" header + custom emoji on side */
+  /* Dropdown like your screenshot: pink panel + "Resources" header + custom emoji beside it */
   .dropdown{
     position:absolute;
     top:46px;
@@ -192,7 +188,7 @@
     transform:translateX(-50%);
     width:320px;
 
-    background: linear-gradient(180deg, rgba(249,144,166,.92), rgba(216,91,134,.92));
+    background: linear-gradient(180deg, rgba(249,144,166,.95), rgba(216,91,134,.95));
     border-radius:26px;
     box-shadow: 0 38px 90px rgba(0,0,0,.65);
     border:1px solid rgba(255,255,255,.14);
@@ -236,16 +232,23 @@
   }
   .drop-list a:hover{ text-decoration: underline; }
 
+  /* Custom “support” emoji sticker (pink, matches theme) */
   .drop-emoji{
     width:86px;
     height:86px;
     border-radius:22px;
-    background: rgba(0,0,0,.10);
+    background: rgba(0,0,0,.12);
     border:1px solid rgba(255,255,255,.18);
     display:grid;
     place-items:center;
-    font-size:40px;
     box-shadow: 0 18px 40px rgba(0,0,0,.25);
+    overflow:hidden;
+  }
+
+  .drop-emoji svg{
+    width:64px;
+    height:64px;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
   }
 
   /* ============ WRAP ============ */
@@ -279,8 +282,8 @@
 
     text-shadow:
       0 2px 0 rgba(255,255,255,.06),
-      0 0 14px rgba(249,144,166,.16),
-      0 14px 40px rgba(0,0,0,.65);
+      0 0 14px rgba(249,144,166,.14),
+      0 14px 40px rgba(0,0,0,.70);
   }
 
   .hero-row{
@@ -315,7 +318,7 @@
     position:absolute;
     inset:-16px;
     border-radius:28px;
-    background: radial-gradient(circle at 40% 30%, rgba(249,144,166,.22), transparent 60%);
+    background: radial-gradient(circle at 40% 30%, rgba(249,144,166,.18), transparent 60%);
     filter: blur(6px);
     opacity:.9;
     pointer-events:none;
@@ -345,7 +348,7 @@
     border:1px solid rgba(255,255,255,.14);
     box-shadow:
       0 30px 70px rgba(0,0,0,.65),
-      0 0 46px rgba(249,144,166,.12);
+      0 0 46px rgba(249,144,166,.10);
 
     overflow:hidden;
     transform: translateY(-6px);
@@ -375,53 +378,6 @@
     transform: rotate(-14deg);
   }
 
-  /* ============ DECOR (remove clutter on text) ============ */
-  .sticker{
-    position:absolute;
-    z-index:0;
-    filter: drop-shadow(0 24px 55px rgba(0,0,0,.7));
-    opacity:.35; /* lower so it never fights text */
-    pointer-events:none;
-    animation: float 8.2s ease-in-out infinite;
-  }
-
-  @keyframes float{
-    0%{ transform: translateY(0) rotate(0deg); }
-    50%{ transform: translateY(-14px) rotate(1deg); }
-    100%{ transform: translateY(0) rotate(0deg); }
-  }
-
-  .egg-mini{
-    width:110px; height:140px;
-    border-radius: 60% 60% 58% 58%;
-    background:
-      radial-gradient(60% 60% at 30% 25%, rgba(255,255,255,.55), transparent 55%),
-      linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.20)),
-      linear-gradient(180deg, var(--pink), var(--rose));
-    border:1px solid rgba(255,255,255,.10);
-  }
-
-  .shop-mini{
-    width:150px; height:120px;
-    border-radius:26px;
-    background:
-      radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%, transparent 70%),
-      linear-gradient(180deg, var(--pink), var(--rose));
-    border:1px solid rgba(255,255,255,.10);
-    overflow:hidden;
-  }
-
-  .shop-mini svg{
-    width:100%;
-    height:100%;
-    padding:22px;
-    opacity:.9;
-    filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
-  }
-
-  .sA{ left:-30px; top:320px; }
-  .sB{ right:-40px; top:360px; animation-duration:9.1s; }
-
   /* ============ OUR GUIDELINES ============ */
   .section{
     padding:54px 0 0;
@@ -450,7 +406,7 @@
     height:3px;
     border-radius:999px;
     background: var(--pink);
-    filter: drop-shadow(0 0 12px rgba(249,144,166,.55));
+    filter: drop-shadow(0 0 12px rgba(249,144,166,.45));
     opacity:.95;
   }
 
@@ -538,7 +494,7 @@
     background: var(--pink);
     color:#000;
     border-color: rgba(249,144,166,.95);
-    box-shadow: 0 0 22px rgba(249,144,166,.22);
+    box-shadow: 0 0 22px rgba(249,144,166,.18);
     transform: translateY(-1px);
   }
 
@@ -548,7 +504,7 @@
   footer{
     margin-top:56px;
     padding:30px 22px;
-    background: #06060a;
+    background: var(--bg); /* same exact black */
     border-top:1px solid rgba(255,255,255,.06);
     color: rgba(255,255,255,.60);
     position:relative;
@@ -578,17 +534,10 @@
   }
   .footer-links a:hover{ color: var(--pink); }
 
-  /* ============ RESPONSIVE ============ */
   @media (max-width: 980px){
     .nav-links{ display:none; }
-    .hero-row{
-      grid-template-columns: 1fr;
-      gap:18px;
-      text-align:left;
-    }
-    .title{ letter-spacing:0.05em; }
+    .hero-row{ grid-template-columns: 1fr; gap:18px; text-align:left; }
     .cards{ grid-template-columns: 1fr; }
-    .sticker{ display:none; }
   }
 </style>
 </head>
@@ -625,8 +574,37 @@
                   <a href="#">Submit a Request</a>
                 </div>
               </div>
-              <!-- custom emoji sitting on the side -->
-              <div class="drop-emoji" aria-hidden="true">🌸</div>
+
+              <!-- custom pink "support" emoji -->
+              <div class="drop-emoji" aria-hidden="true">
+                <svg viewBox="0 0 96 96" fill="none" aria-hidden="true">
+                  <!-- background blob -->
+                  <defs>
+                    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0" stop-color="#f990a6"/>
+                      <stop offset="1" stop-color="#d85b86"/>
+                    </linearGradient>
+                    <radialGradient id="h" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                      gradientTransform="translate(34 26) rotate(55) scale(40)">
+                      <stop stop-color="rgba(255,255,255,.85)"/>
+                      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                    </radialGradient>
+                  </defs>
+
+                  <path d="M22 34c0-12 10-22 22-22h8c12 0 22 10 22 22v14c0 20-16 36-36 36S22 68 22 48V34z"
+                        fill="url(#g)" opacity=".95"/>
+                  <path d="M22 34c0-12 10-22 22-22h8c12 0 22 10 22 22v14c0 20-16 36-36 36S22 68 22 48V34z"
+                        fill="url(#h)" opacity=".55"/>
+
+                  <!-- headset + heart (support vibe) -->
+                  <path d="M30 50c0-12 8-20 18-20s18 8 18 20" stroke="white" stroke-width="6" stroke-linecap="round" opacity=".95"/>
+                  <path d="M28 52v10c0 3 2 5 5 5h3V49h-3c-3 0-5 2-5 3z" fill="white" opacity=".95"/>
+                  <path d="M68 52v10c0 3-2 5-5 5h-3V49h3c3 0 5 2 5 3z" fill="white" opacity=".95"/>
+
+                  <path d="M48 61c-4-4-10 1-6 6 2 3 6 6 6 6s4-3 6-6c4-5-2-10-6-6z"
+                        fill="white" opacity=".95"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -644,7 +622,34 @@
                   <a href="#">Submit a Request</a>
                 </div>
               </div>
-              <div class="drop-emoji" aria-hidden="true">🌺</div>
+
+              <div class="drop-emoji" aria-hidden="true">
+                <!-- reuse same custom emoji -->
+                <svg viewBox="0 0 96 96" fill="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0" stop-color="#f990a6"/>
+                      <stop offset="1" stop-color="#d85b86"/>
+                    </linearGradient>
+                    <radialGradient id="h2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                      gradientTransform="translate(34 26) rotate(55) scale(40)">
+                      <stop stop-color="rgba(255,255,255,.85)"/>
+                      <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                    </radialGradient>
+                  </defs>
+
+                  <path d="M22 34c0-12 10-22 22-22h8c12 0 22 10 22 22v14c0 20-16 36-36 36S22 68 22 48V34z"
+                        fill="url(#g2)" opacity=".95"/>
+                  <path d="M22 34c0-12 10-22 22-22h8c12 0 22 10 22 22v14c0 20-16 36-36 36S22 68 22 48V34z"
+                        fill="url(#h2)" opacity=".55"/>
+
+                  <path d="M30 50c0-12 8-20 18-20s18 8 18 20" stroke="white" stroke-width="6" stroke-linecap="round" opacity=".95"/>
+                  <path d="M28 52v10c0 3 2 5 5 5h3V49h-3c-3 0-5 2-5 3z" fill="white" opacity=".95"/>
+                  <path d="M68 52v10c0 3-2 5-5 5h-3V49h3c3 0 5 2 5 3z" fill="white" opacity=".95"/>
+                  <path d="M48 61c-4-4-10 1-6 6 2 3 6 6 6 6s4-3 6-6c4-5-2-10-6-6z"
+                        fill="white" opacity=".95"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -663,28 +668,15 @@
   </header>
 
   <main class="wrap">
-    <!-- reduced decorations (kept away from the header text) -->
-    <div class="sticker egg-mini sA"></div>
-    <div class="sticker shop-mini sB">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-        <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-        <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-
     <!-- HERO -->
     <section class="hero">
       <h1 class="title">WELCOME TO LOTUS CUSTOMS</h1>
 
       <div class="hero-row">
-        <!-- LCP logo left -->
         <div class="logo-card">
-          <!-- This assumes LCP (1).webp is in the SAME folder as this HTML file -->
           <img class="logo-img" src="LCP (1).webp" alt="LCP Logo">
         </div>
 
-        <!-- Intro text center -->
         <p class="intro">
           Lotus Customs is a creative space built for people who love intentional design. Whether you’re refining your brand,
           building a server aesthetic, or exploring new visual styles, our community gives you the tools and support to grow.
@@ -693,7 +685,6 @@
           designers shaping full visual identities.
         </p>
 
-        <!-- orb right -->
         <div class="orb" aria-hidden="true"></div>
       </div>
     </section>
@@ -706,10 +697,6 @@
         Lotus Customs presents its navigation in a clean, intentional layout that mirrors the precision of the design work the community is known for. At the top of the interface, visitors find a row of categories that feel both minimal and expressive, each one crafted to guide users toward the resources they need without overwhelming them. The structure is simple, but the visual language is unmistakably Lotus: soft edges, balanced spacing, and a subtle emphasis on clarity.
         <br><br>
         The section inspired by the “Support” tab in the image becomes a polished, design-centric hub for creators. When someone hovers over it, a dropdown unfolds with smooth motion, revealing a set of curated options that feel like part of a cohesive brand system. Instead of generic labels, each item is written with intention, helping users understand exactly where to go for help, feedback, or guidance. The dropdown itself uses a soft pink accent, matching Lotus Customs’ aesthetic and reinforcing the idea that support is part of the creative experience.
-        <br><br>
-        The presence of the pink dropdown emojis ties the entire interface together. They act as a visual signature — a small but memorable detail that tells users they’re in a space that values aesthetics. They also help differentiate Lotus Customs from generic design servers by giving the UI a personality that feels handcrafted. These emojis can be reused across the site for consistency, marking expandable sections, interactive elements, or AI-powered features.
-        <br><br>
-        Overall, the redesigned text and interface elements create a cohesive experience that mirrors the professionalism and creativity of Lotus Customs. The navigation is intuitive, the language is warm, and the visual details create a premium interface that feels alive and expressive — a blend of functionality and artistry, just like the work your community produces.
       </p>
 
       <div class="divider"></div>
@@ -779,7 +766,7 @@
 
   <footer>
     <div class="footer-inner">
-      <div>© 2026 Lotus Customs • Pink + black UI identity.</div>
+      <div>© 2026 Lotus Customs. All Rights Reserved.</div>
       <div class="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
