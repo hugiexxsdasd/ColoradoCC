@@ -1,314 +1,393 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Colorado CC</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-box-sizing:border-box;
-}
-
-body{
-
-margin:0;
-font-family:"Inter",sans-serif;
-color:white;
-overflow-x:hidden;
-
-
-/* Discord-style gradient but blue */
-background:
-radial-gradient(1200px 700px at 50% -200px, rgba(150,210,255,.55), transparent 60%),
-linear-gradient(
-180deg,
-#8fd3ff 0%,
-#4a8dff 25%,
-#182f5f 55%,
-#091631 80%,
-#02050c 100%
-);
-
-min-height:100vh;
-
-}
-
-
-/* NAV BAR */
-
-.nav{
-
-position:absolute;
-top:0;
-width:100%;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-padding-top:30px;
-
-}
-
-
-/* CENTER LINKS */
-
-.nav-links{
-
-display:flex;
-gap:50px;
-
-font-weight:800;
-font-size:16px;
-
-letter-spacing:-0.01em;
-
-}
-
-.nav-links a{
-
-color:rgba(255,255,255,.85);
-text-decoration:none;
-
-}
-
-.nav-links a:hover{
-
-color:white;
-
-}
-
-
-/* HERO */
-
-.hero{
-
-max-width:1000px;
-margin:220px auto 0 auto;
-
-padding:0 30px;
-
-text-align:center;
-
-}
-
-
-/* MASSIVE HEAVY WELCOME */
-
-.hero h1{
-
-font-size:clamp(120px, 14vw, 200px);
-
-font-weight:900;
-
-letter-spacing:-0.07em;
-
-line-height:.85;
-
-margin-bottom:40px;
-
-}
-
-
-/* BODY TEXT */
-
-.hero p{
-
-font-size:22px;
-
-font-weight:500;
-
-line-height:1.7;
-
-color:rgba(255,255,255,.9);
-
-max-width:850px;
-
-margin-left:auto;
-margin-right:auto;
-
-margin-bottom:20px;
-
-}
-
-
-/* BUTTONS */
-
-.buttons{
-
-margin-top:50px;
-
-display:flex;
-justify-content:center;
-
-gap:20px;
-
-}
-
-.btn{
-
-padding:16px 28px;
-
-border-radius:999px;
-
-border:1px solid rgba(255,255,255,.2);
-
-background:rgba(255,255,255,.05);
-
-font-weight:800;
-
-font-size:15px;
-
-text-decoration:none;
-
-color:white;
-
-transition:.2s;
-
-}
-
-.btn:hover{
-
-background:rgba(255,255,255,.15);
-
-transform:translateY(-2px);
-
-}
-
-
-/* FLOATING EGG */
-
-.egg{
-
-position:absolute;
-
-right:10%;
-top:260px;
-
-width:160px;
-height:200px;
-
-background:linear-gradient(
-180deg,
-#9edcff,
-#3a7cff
-);
-
-border-radius:70% 70% 60% 60%;
-
-box-shadow:0 50px 100px rgba(0,0,0,.4);
-
-animation:float 6s ease-in-out infinite;
-
-}
-
-
-@keyframes float{
-
-0%{transform:translateY(0);}
-50%{transform:translateY(-25px);}
-100%{transform:translateY(0);}
-
-}
-
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-.hero{
-
-margin-top:140px;
-
-}
-
-.hero h1{
-
-font-size:80px;
-
-}
-
-.hero p{
-
-font-size:18px;
-
-}
-
-.nav-links{
-
-gap:20px;
-
-font-size:14px;
-
-}
-
-.egg{
-
-display:none;
-
-}
-
-}
-
+  :root{
+    --bg0:#0b1020;
+    --bg1:#1a2a63;
+    --bg2:#5b8cff;
+    --bg3:#aee3ff;
+
+    --pink0:#ff2ea6;
+    --pink1:#ff6cc8;
+    --pink2:#ffb3e6;
+
+    --white: rgba(255,255,255,.92);
+    --muted: rgba(255,255,255,.78);
+    --muted2: rgba(255,255,255,.62);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+
+  body{
+    margin:0;
+    font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:white;
+    overflow-x:hidden;
+
+    /* Discord-ish depth + bloom */
+    background:
+      radial-gradient(1100px 700px at 50% -220px, rgba(174,227,255,.58), transparent 60%),
+      radial-gradient(900px 520px at 20% 10%, rgba(255,108,200,.18), transparent 62%),
+      radial-gradient(900px 520px at 80% 20%, rgba(255,46,166,.14), transparent 60%),
+      linear-gradient(180deg,
+        var(--bg3) 0%,
+        var(--bg2) 22%,
+        var(--bg1) 52%,
+        #091631 78%,
+        #02050c 100%
+      );
+  }
+
+  /* Subtle scan/texture so it feels “Discord-y” */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,.04) 0px,
+        rgba(255,255,255,.04) 1px,
+        transparent 2px,
+        transparent 6px
+      );
+    mix-blend-mode:soft-light;
+    opacity:.25;
+  }
+
+  /* NAV */
+  .nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    justify-content:center;
+    padding:22px 18px;
+  }
+
+  .nav-inner{
+    width:min(1200px, 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+
+    padding:14px 18px;
+    border-radius:999px;
+    background:rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-links{
+    display:flex;
+    gap:38px;
+    font-weight:800;
+    font-size:16px;
+    letter-spacing:-0.01em;
+  }
+
+  .nav-links a{
+    color:rgba(255,255,255,.85);
+    text-decoration:none;
+    transition:.18s ease;
+  }
+  .nav-links a:hover{ color:white; transform:translateY(-1px); }
+
+  /* LAYOUT */
+  .wrap{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:110px 24px 80px;
+  }
+
+  /* HERO */
+  .hero{
+    width:min(1200px, 100%);
+    text-align:center;
+    position:relative;
+    z-index:10;
+  }
+
+  /* MASSIVE DISCORD-LIKE HEADLINE */
+  .hero h1{
+    margin:0 0 26px;
+    font-weight:900;
+    letter-spacing:-0.075em;
+    line-height:.82;
+
+    /* HUGE */
+    font-size:clamp(110px, 18vw, 260px);
+
+    /* Slight embossed glow */
+    text-shadow:
+      0 2px 0 rgba(255,255,255,.08),
+      0 22px 50px rgba(0,0,0,.35);
+  }
+
+  /* BIG BODY TEXT (way bigger than before) */
+  .hero p{
+    margin:0 auto 18px;
+    max-width:1050px;
+
+    font-weight:600;
+    letter-spacing:-0.02em;
+    line-height:1.55;
+
+    /* HUGE */
+    font-size:clamp(22px, 3.4vw, 44px);
+
+    color:var(--muted);
+    text-shadow: 0 18px 40px rgba(0,0,0,.30);
+  }
+
+  .hero p:last-of-type{ margin-bottom:34px; }
+
+  /* BUTTONS */
+  .buttons{
+    margin-top:22px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+
+  .btn{
+    padding:18px 30px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+    color:white;
+    text-decoration:none;
+    font-weight:900;
+    font-size:16px;
+    letter-spacing:-0.01em;
+    transition:.18s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+  }
+  .btn:hover{
+    background:rgba(255,255,255,.14);
+    transform:translateY(-2px);
+  }
+
+  .btn.primary{
+    border-color: rgba(255,255,255,.22);
+    background:
+      radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,.35), rgba(255,255,255,.06) 55%),
+      linear-gradient(180deg, rgba(255,108,200,.28), rgba(255,46,166,.14));
+  }
+
+  /* ===== PINK “3D” STICKERS (no external images) =====
+     These are CSS-made, glossy, realistic-ish blobs: Eggs + Shops + Cubes.
+  */
+
+  .sticker{
+    position:absolute;
+    z-index:2;
+    filter: drop-shadow(0 24px 45px rgba(0,0,0,.35));
+    animation: float 7s ease-in-out infinite;
+    transform-origin:center;
+    opacity:.98;
+  }
+
+  @keyframes float{
+    0%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-26px) rotate(1.5deg); }
+    100%{ transform:translateY(0) rotate(0deg); }
+  }
+
+  /* Gloss highlight layer */
+  .sticker::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:inherit;
+    background:
+      radial-gradient(80% 60% at 30% 25%, rgba(255,255,255,.78), transparent 60%),
+      radial-gradient(60% 40% at 70% 30%, rgba(255,255,255,.20), transparent 62%),
+      radial-gradient(110% 110% at 50% 90%, rgba(0,0,0,.18), transparent 55%);
+    mix-blend-mode: screen;
+    pointer-events:none;
+  }
+
+  /* EGG */
+  .egg{
+    width:170px;
+    height:220px;
+    border-radius: 60% 60% 58% 58%;
+    background:
+      radial-gradient(60% 70% at 35% 20%, rgba(255,255,255,.55), transparent 55%),
+      radial-gradient(75% 85% at 60% 55%, rgba(255,179,230,.55), rgba(255,108,200,.18) 60%, transparent 70%),
+      linear-gradient(180deg, var(--pink2) 0%, var(--pink1) 35%, var(--pink0) 100%);
+    border:1px solid rgba(255,255,255,.16);
+  }
+
+  /* Egg spots */
+  .egg::after{
+    content:"";
+    position:absolute; inset:18px;
+    border-radius:inherit;
+    background:
+      radial-gradient(circle at 22% 35%, rgba(255,255,255,.26) 0 16px, transparent 17px),
+      radial-gradient(circle at 62% 30%, rgba(255,255,255,.20) 0 12px, transparent 13px),
+      radial-gradient(circle at 52% 62%, rgba(255,255,255,.22) 0 18px, transparent 19px),
+      radial-gradient(circle at 28% 70%, rgba(255,255,255,.14) 0 10px, transparent 11px);
+    opacity:.55;
+    pointer-events:none;
+    filter: blur(.2px);
+  }
+
+  /* SHOP (rounded “3D” storefront tile) */
+  .shop{
+    width:210px;
+    height:170px;
+    border-radius:28px;
+    background:
+      radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.42), rgba(255,255,255,.06) 55%, transparent 70%),
+      linear-gradient(180deg, rgba(255,179,230,.92) 0%, rgba(255,108,200,.88) 45%, rgba(255,46,166,.92) 100%);
+    border:1px solid rgba(255,255,255,.16);
+  }
+
+  /* Shop icon lines */
+  .shop svg{
+    position:absolute;
+    inset:22px;
+    width:calc(100% - 44px);
+    height:calc(100% - 44px);
+    opacity:.92;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+  }
+
+  /* CUBE (discord-ish “floating object”) */
+  .cube{
+    width:170px;
+    height:170px;
+    border-radius:34px;
+    background:
+      radial-gradient(90% 90% at 30% 20%, rgba(255,255,255,.55), transparent 55%),
+      linear-gradient(135deg, rgba(255,179,230,.95), rgba(255,108,200,.85) 55%, rgba(255,46,166,.95));
+    border:1px solid rgba(255,255,255,.14);
+    transform: rotate(10deg);
+  }
+
+  .cube::after{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border-radius:26px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.30), transparent 55%),
+      radial-gradient(55% 55% at 55% 60%, rgba(0,0,0,.18), transparent 60%);
+    opacity:.65;
+    pointer-events:none;
+  }
+
+  /* Sticker positions */
+  .s1{ left:6%; top:22%; animation-duration:6.4s; }
+  .s2{ right:8%; top:20%; animation-duration:7.6s; }
+  .s3{ right:6%; bottom:12%; animation-duration:8.2s; }
+  .s4{ left:8%; bottom:14%; animation-duration:7.1s; }
+  .s5{ left:50%; top:14%; transform:translateX(-50%) rotate(-6deg); animation-duration:9s; opacity:.82; }
+
+  /* Soft glow blobs behind stickers */
+  .glow{
+    position:absolute;
+    inset:auto;
+    width:520px;
+    height:520px;
+    border-radius:999px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,108,200,.18), transparent 62%);
+    filter: blur(8px);
+    opacity:.8;
+    z-index:1;
+    pointer-events:none;
+  }
+  .g1{ left:-140px; top:140px; }
+  .g2{ right:-160px; bottom:40px; background: radial-gradient(circle at 40% 40%, rgba(255,46,166,.16), transparent 60%); }
+
+  /* MOBILE */
+  @media (max-width: 980px){
+    .nav-inner{ gap:18px; justify-content:center; }
+    .nav-links{ gap:18px; font-size:14px; flex-wrap:wrap; justify-content:center; }
+
+    .wrap{ padding-top:120px; }
+    .hero h1{ font-size: clamp(78px, 18vw, 170px); }
+    .hero p{ font-size: clamp(18px, 4.6vw, 28px); max-width: 720px; }
+
+    /* keep a couple stickers, hide the rest */
+    .s3,.s4,.s5{ display:none; }
+    .egg{ width:140px; height:190px; }
+    .shop{ width:180px; height:150px; }
+  }
 </style>
-
 </head>
+
 <body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="#">Guidelines</a>
+        <a href="#">Support</a>
+        <a href="#">Tickets</a>
+        <a href="#">Discover</a>
+      </div>
+    </div>
+  </div>
 
+  <!-- BACK GLOWS -->
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
 
-<div class="nav">
+  <!-- PINK “3D” STICKERS -->
+  <div class="sticker egg s1"></div>
 
-<div class="nav-links">
+  <div class="sticker shop s2">
+    <!-- simple storefront icon -->
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M4 10.5c.5 1.5 1.9 2.5 3.5 2.5S10 12 10 10.5c0 1.5 1.3 2.5 2.9 2.5S16 12 16 10.5c0 1.5 1.3 2.5 2.9 2.5S21 12 21 10.5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
 
-<a href="#">Guidelines</a>
-<a href="#">Support</a>
-<a href="#">Tickets</a>
-<a href="#">Discover</a>
+  <div class="sticker cube s3"></div>
+  <div class="sticker egg s4" style="animation-duration:8.8s; opacity:.88;"></div>
+  <div class="sticker cube s5"></div>
 
-</div>
+  <!-- HERO -->
+  <main class="wrap">
+    <section class="hero">
+      <h1>WELCOME</h1>
 
-</div>
+      <p>
+        Colorado Roleplay is built to bring people together through immersive storytelling, shared scenes, and collaborative world-building. Every member uses the server differently—some stick to tight-knit friend groups, others participate in large public RP spaces, and many move fluidly between both.
+      </p>
 
+      <p>
+        Across Colorado Roleplay, we design our systems, rules, and staff practices with privacy and transparency in mind. We want you to always understand how your information, your characters, and your interactions are handled.
+      </p>
 
-<div class="hero">
-
-<h1>WELCOME</h1>
-
-<p>
-
-Colorado Roleplay is built to bring people together through immersive storytelling, shared scenes, and collaborative world-building. Every member uses the server differently—some stick to tight-knit friend groups, others participate in large public RP spaces, and many move fluidly between both.
-
-</p>
-
-<p>
-
-Across Colorado Roleplay, we design our systems, rules, and staff practices with privacy and transparency in mind. We want you to always understand how your information, your characters, and your interactions are handled.
-
-</p>
-
-
-<div class="buttons">
-
-<a class="btn" href="#">Join Discord</a>
-<a class="btn" href="#">Open Ticket</a>
-<a class="btn" href="#">View Rules</a>
-
-</div>
-
-</div>
-
-
-<div class="egg"></div>
-
-
+      <div class="buttons">
+        <a class="btn primary" href="#">Join Discord</a>
+        <a class="btn" href="#">Open Ticket</a>
+        <a class="btn" href="#">View Rules</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
-
