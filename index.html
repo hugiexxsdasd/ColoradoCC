@@ -25,6 +25,9 @@
 
     --line: rgba(249,144,166,.22);
     --line2: rgba(249,144,166,.14);
+
+    --panel: rgba(16,16,22,.92);
+    --panel2: rgba(255,255,255,.03);
   }
 
   *{ box-sizing:border-box; }
@@ -101,7 +104,6 @@
     border:1px solid rgba(255,255,255,.10);
     box-shadow: 0 18px 45px rgba(0,0,0,.35);
   }
-
   .brand-mark svg{ width:18px; height:18px; opacity:.95; }
 
   .nav-links{
@@ -112,16 +114,9 @@
     flex:1;
   }
 
-  .nav-item{
-    position:relative;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
+  .nav-item{ position:relative; }
 
-  .nav-links a,
-  .nav-links button{
-    position:relative;
+  .nav-link{
     appearance:none;
     border:0;
     background:transparent;
@@ -133,12 +128,24 @@
     font-size:14px;
     letter-spacing:-0.01em;
     padding:10px 2px;
+
     transition:.18s ease;
     font-family:inherit;
+
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
   }
 
-  .nav-links a::after,
-  .nav-links button::after{
+  .nav-link:hover{ color:white; }
+
+  .nav-link .chev{
+    display:inline-block;
+    transform: translateY(-1px);
+    opacity:.8;
+  }
+
+  .nav-link::after{
     content:"";
     position:absolute;
     left:0; right:0;
@@ -152,15 +159,7 @@
     filter: drop-shadow(0 0 10px rgba(249,144,166,.65));
     transition:.18s ease;
   }
-
-  .nav-links a:hover,
-  .nav-links button:hover{
-    color:white;
-  }
-  .nav-links a:hover::after,
-  .nav-links button:hover::after{
-    transform:scaleX(1);
-  }
+  .nav-item:hover .nav-link::after{ transform:scaleX(1); }
 
   .nav-cta{
     text-decoration:none;
@@ -185,55 +184,68 @@
       0 0 36px rgba(249,144,166,.28);
   }
 
-  /* Dropdown */
+  /* Dropdown like your image: pink panel + "Resources" header + custom emoji on side */
   .dropdown{
     position:absolute;
-    top:44px;
+    top:46px;
     left:50%;
     transform:translateX(-50%);
-    width:260px;
-    padding:10px;
-    border-radius:16px;
-    background: rgba(10,10,14,.92);
-    border:1px solid rgba(249,144,166,.18);
-    box-shadow: 0 30px 80px rgba(0,0,0,.65);
-    backdrop-filter: blur(14px);
+    width:320px;
 
+    background: linear-gradient(180deg, rgba(249,144,166,.92), rgba(216,91,134,.92));
+    border-radius:26px;
+    box-shadow: 0 38px 90px rgba(0,0,0,.65);
+    border:1px solid rgba(255,255,255,.14);
+
+    padding:20px;
     opacity:0;
     visibility:hidden;
-    translate: 0 -6px;
+    translate: 0 -8px;
     transition:.18s ease;
   }
 
   .nav-item:hover .dropdown{
     opacity:1;
     visibility:visible;
-    translate: 0 0;
+    translate:0 0;
   }
 
-  .dropdown a{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding:10px 12px;
-    border-radius:12px;
-    text-decoration:none;
-    color: rgba(255,255,255,.86);
-    font-weight:600;
+  .drop-grid{
+    display:grid;
+    grid-template-columns: 1fr 86px;
+    gap:16px;
+    align-items:end;
   }
 
-  .dropdown a:hover{
-    background: rgba(249,144,166,.10);
-    color:white;
+  .drop-head{
+    color: rgba(255,255,255,.72);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    margin:2px 0 12px;
+    font-size:18px;
   }
 
-  .dropdown small{
+  .drop-list a{
     display:block;
-    color: rgba(255,240,246,.58);
-    font-weight:500;
-    margin-top:2px;
-    line-height:1.35;
+    text-decoration:none;
+    color:white;
+    font-weight:800;
+    font-size:22px;
+    line-height:1.1;
+    padding:10px 0;
+  }
+  .drop-list a:hover{ text-decoration: underline; }
+
+  .drop-emoji{
+    width:86px;
+    height:86px;
+    border-radius:22px;
+    background: rgba(0,0,0,.10);
+    border:1px solid rgba(255,255,255,.18);
+    display:grid;
+    place-items:center;
+    font-size:40px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.25);
   }
 
   /* ============ WRAP ============ */
@@ -248,6 +260,7 @@
   .hero{
     position:relative;
     padding:44px 0 22px;
+    z-index:2;
   }
 
   .title{
@@ -312,8 +325,6 @@
     width:86%;
     height:auto;
     display:block;
-    /* IMPORTANT: set your correct path here */
-    /* example: ./assets/LCP (1).webp */
     border-radius:18px;
   }
 
@@ -364,12 +375,12 @@
     transform: rotate(-14deg);
   }
 
-  /* ============ DECOR (reduced + pushed away from text) ============ */
+  /* ============ DECOR (remove clutter on text) ============ */
   .sticker{
     position:absolute;
-    z-index:0; /* behind everything */
+    z-index:0;
     filter: drop-shadow(0 24px 55px rgba(0,0,0,.7));
-    opacity:.65;
+    opacity:.35; /* lower so it never fights text */
     pointer-events:none;
     animation: float 8.2s ease-in-out infinite;
   }
@@ -408,14 +419,8 @@
     filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
   }
 
-  /* moved to margins so they do NOT cover the header */
-  .sA{ left:-30px; top:260px; }
-  .sB{ right:-40px; top:320px; animation-duration:9.1s; }
-  .sC{ left:40px; bottom:-10px; opacity:.45; }
-  .sD{ right:60px; bottom:0px; opacity:.45; animation-duration:7.6s; }
-
-  /* Keep hero content above stickers */
-  .hero, .nav{ position:relative; z-index:2; }
+  .sA{ left:-30px; top:320px; }
+  .sB{ right:-40px; top:360px; animation-duration:9.1s; }
 
   /* ============ OUR GUIDELINES ============ */
   .section{
@@ -511,7 +516,6 @@
     font-size:13px;
   }
 
-  /* Buttons: black + pink border, invert on hover */
   .btn{
     display:inline-flex;
     align-items:center;
@@ -572,9 +576,7 @@
     text-decoration:none;
     font-weight:700;
   }
-  .footer-links a:hover{
-    color: var(--pink);
-  }
+  .footer-links a:hover{ color: var(--pink); }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 980px){
@@ -607,42 +609,52 @@
 
       <nav class="nav-links" aria-label="Primary">
         <div class="nav-item">
-          <a href="#">Safety</a>
+          <a class="nav-link" href="#">Safety</a>
         </div>
 
         <div class="nav-item">
-          <a href="#">Quests <span aria-hidden="true">💞⌄</span></a>
-          <div class="dropdown" role="menu" aria-label="Quests menu">
-            <a href="#"><span>Palette Prompts <small>Daily color challenges & ideas</small></span><span aria-hidden="true">🌸✨</span></a>
-            <a href="#"><span>Brand Sprints <small>Quick identity-building exercises</small></span><span aria-hidden="true">🎀📐</span></a>
-            <a href="#"><span>Creative Tasks <small>Small wins that level you up</small></span><span aria-hidden="true">💗🖌️</span></a>
+          <a class="nav-link" href="#">Quests <span class="chev" aria-hidden="true">⌄</span></a>
+
+          <div class="dropdown" role="menu" aria-label="Quests dropdown">
+            <div class="drop-grid">
+              <div>
+                <div class="drop-head">Resources</div>
+                <div class="drop-list">
+                  <a href="#">Help Centre</a>
+                  <a href="#">Feedback</a>
+                  <a href="#">Submit a Request</a>
+                </div>
+              </div>
+              <!-- custom emoji sitting on the side -->
+              <div class="drop-emoji" aria-hidden="true">🌸</div>
+            </div>
           </div>
         </div>
 
         <div class="nav-item">
-          <button type="button">Support <span aria-hidden="true">🌸⌄</span></button>
-          <div class="dropdown" role="menu" aria-label="Support menu">
-            <a href="#"><span>Design Help Desk <small>Questions, fixes, and quick guidance</small></span><span aria-hidden="true">🌺📂</span></a>
-            <a href="#"><span>Request a Custom Asset <small>Ask for icons, panels, or visuals</small></span><span aria-hidden="true">🎀📐</span></a>
-            <a href="#"><span>Feedback & Critique <small>Grow your style with support</small></span><span aria-hidden="true">💗🖌️</span></a>
+          <a class="nav-link" href="#">Support <span class="chev" aria-hidden="true">⌄</span></a>
+
+          <div class="dropdown" role="menu" aria-label="Support dropdown">
+            <div class="drop-grid">
+              <div>
+                <div class="drop-head">Resources</div>
+                <div class="drop-list">
+                  <a href="#">Help Centre</a>
+                  <a href="#">Feedback</a>
+                  <a href="#">Submit a Request</a>
+                </div>
+              </div>
+              <div class="drop-emoji" aria-hidden="true">🌺</div>
+            </div>
           </div>
         </div>
 
         <div class="nav-item">
-          <a href="#">Blog</a>
+          <a class="nav-link" href="#">Blog</a>
         </div>
 
         <div class="nav-item">
-          <a href="#">Developers</a>
-        </div>
-
-        <div class="nav-item">
-          <a href="#">Lotus AI <span aria-hidden="true">🌸✨⌄</span></a>
-          <div class="dropdown" role="menu" aria-label="Lotus AI menu">
-            <a href="#"><span>Palette Generator <small>Build clean color systems fast</small></span><span aria-hidden="true">🌸✨</span></a>
-            <a href="#"><span>Design Prompts <small>Ideas for logos, layouts, and icons</small></span><span aria-hidden="true">💗🖌️</span></a>
-            <a href="#"><span>Guidelines Assistant <small>Make rules clear & on-brand</small></span><span aria-hidden="true">🌺📂</span></a>
-          </div>
+          <a class="nav-link" href="#">Developers</a>
         </div>
       </nav>
 
@@ -651,20 +663,13 @@
   </header>
 
   <main class="wrap">
-    <!-- reduced decorations (kept away from the header) -->
+    <!-- reduced decorations (kept away from the header text) -->
     <div class="sticker egg-mini sA"></div>
     <div class="sticker shop-mini sB">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
         <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
         <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <div class="sticker egg-mini sC"></div>
-    <div class="sticker shop-mini sD">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-        <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </div>
 
@@ -674,8 +679,8 @@
 
       <div class="hero-row">
         <!-- LCP logo left -->
-        <div class="logo-card" aria-hidden="true">
-          <!-- Put your correct path here -->
+        <div class="logo-card">
+          <!-- This assumes LCP (1).webp is in the SAME folder as this HTML file -->
           <img class="logo-img" src="LCP (1).webp" alt="LCP Logo">
         </div>
 
@@ -702,21 +707,9 @@
         <br><br>
         The section inspired by the “Support” tab in the image becomes a polished, design-centric hub for creators. When someone hovers over it, a dropdown unfolds with smooth motion, revealing a set of curated options that feel like part of a cohesive brand system. Instead of generic labels, each item is written with intention, helping users understand exactly where to go for help, feedback, or guidance. The dropdown itself uses a soft pink accent, matching Lotus Customs’ aesthetic and reinforcing the idea that support is part of the creative experience.
         <br><br>
-        To replace the original Discord phrasing, Lotus Customs introduces itself as a space built around the joy of design rather than gaming. The tone stays warm and community-focused, but the emphasis shifts toward creativity, visual identity, and collaborative growth. The rewritten text highlights how Lotus Customs supports designers of all levels, from beginners experimenting with their first palettes to experienced creators refining full branding systems. It mirrors the structure of the Discord Safety Centre description, but with a design-studio personality.
-        <br><br>
-        At the top of the page, where ChatGPT or AI assistance would appear, Lotus Customs uses custom pink emojis to signal interactive elements. These emojis act as visual anchors, guiding users toward expandable sections, help menus, or AI-powered tools. Each emoji is detailed, expressive, and themed around creativity — for example: 🌸✨, 🎀📐, 💗🖌️, 🌺📂. They’re not just decorative; they function as symbols that indicate the presence of a dropdown, a tooltip, or a collapsible menu.
-        <br><br>
-        These pink emojis appear beside the AI assistant’s name or icon, giving the interface a friendly, approachable feel. When a user hovers over them, the symbol subtly shifts or glows, signaling that more information is available. This mirrors the behavior of the arrow in the “Quests ⌄” image, but with a softer, more artistic twist. Instead of a plain arrow, Lotus Customs uses a stylized pink dropdown marker like: 💞⌄ or 🌸⌄ — something that feels custom, not default.
-        <br><br>
-        The dropdown triggered by these emojis opens into a compact panel that blends seamlessly with the rest of the site. Inside, users might find quick links to AI tools, design prompts, palette generators, or help articles. The panel uses the same pink accents, rounded corners, and soft shadows that define the Lotus brand. Every element is intentional, reinforcing the idea that even utility menus can be beautiful.
-        <br><br>
-        The rewritten description for Lotus Customs emphasizes the server’s commitment to positive, supportive experiences. Just as Discord highlights safety and community, Lotus Customs highlights creativity, learning, and collaboration. The tone is reassuring without being formal, and expressive without being overwhelming. It invites users to explore, experiment, and grow — all within a space designed to feel premium and welcoming.
-        <br><br>
-        The “Resources” section becomes the Lotus Knowledge Centre, a place where designers can find tutorials, guides, FAQs, and community standards. Each item in the dropdown is labeled clearly, using language that feels both professional and friendly. Instead of “Help Centre,” you might see “Design Help Desk.” Instead of “Submit a Request,” you might see “Request a Custom Asset.” The structure stays familiar, but the branding becomes unmistakably Lotus.
-        <br><br>
         The presence of the pink dropdown emojis ties the entire interface together. They act as a visual signature — a small but memorable detail that tells users they’re in a space that values aesthetics. They also help differentiate Lotus Customs from generic design servers by giving the UI a personality that feels handcrafted. These emojis can be reused across the site for consistency, marking expandable sections, interactive elements, or AI-powered features.
         <br><br>
-        Overall, the redesigned text and interface elements create a cohesive experience that mirrors the professionalism and creativity of Lotus Customs. The navigation is intuitive, the language is warm, and the visual details — especially the pink dropdown emojis — make the site feel alive and expressive. It’s a perfect blend of functionality and artistry, just like the work your community produces.
+        Overall, the redesigned text and interface elements create a cohesive experience that mirrors the professionalism and creativity of Lotus Customs. The navigation is intuitive, the language is warm, and the visual details create a premium interface that feels alive and expressive — a blend of functionality and artistry, just like the work your community produces.
       </p>
 
       <div class="divider"></div>
