@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Safety Centre</title>
+<title>Lotus Customs</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
   :root{
     --pink:#f990a6;
-    --rose:#d85b86;        /* deeper rose-pink for gradients */
-    --rose2:#b64672;       /* even deeper for shadows */
+    --rose:#d85b86;
+    --rose2:#b64672;
+
     --bgTop:#000000;
     --bgMid:#0a0a0f;
     --bgBot:#121218;
@@ -31,11 +32,10 @@
 
   body{
     margin:0;
-    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     color:var(--text);
     overflow-x:hidden;
 
-    /* layered black gradient background */
     background:
       radial-gradient(1200px 600px at 50% -220px, rgba(249,144,166,.14), transparent 60%),
       radial-gradient(900px 520px at 15% 18%, rgba(249,144,166,.08), transparent 60%),
@@ -43,7 +43,6 @@
       linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
   }
 
-  /* subtle texture like Discord hero */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -51,12 +50,12 @@
     background:
       repeating-linear-gradient(
         180deg,
-        rgba(255,255,255,.045) 0px,
-        rgba(255,255,255,.045) 1px,
+        rgba(255,255,255,.05) 0px,
+        rgba(255,255,255,.05) 1px,
         transparent 2px,
-        transparent 7px
+        transparent 8px
       );
-    opacity:.12;
+    opacity:.10;
     mix-blend-mode:soft-light;
   }
 
@@ -64,11 +63,11 @@
   .nav{
     position:sticky;
     top:0;
-    z-index:50;
+    z-index:80;
     width:100%;
     padding:18px 22px;
     backdrop-filter: blur(10px);
-    background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.18));
+    background: linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.18));
     border-bottom:1px solid rgba(255,255,255,.06);
   }
 
@@ -87,40 +86,63 @@
     gap:10px;
     text-decoration:none;
     color:var(--text);
-    font-weight:900;
+    font-weight:800;
     letter-spacing:-0.02em;
+    white-space:nowrap;
   }
 
-  .brand svg{
+  .brand-mark{
     width:34px;
     height:34px;
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,.5));
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow: 0 18px 45px rgba(0,0,0,.35);
   }
+
+  .brand-mark svg{ width:18px; height:18px; opacity:.95; }
 
   .nav-links{
     display:flex;
-    gap:36px;
+    gap:34px;
     align-items:center;
     justify-content:center;
     flex:1;
   }
 
-  .nav-links a{
+  .nav-item{
     position:relative;
-    text-decoration:none;
-    color:rgba(255,255,255,.84);
-    font-weight:800;
-    font-size:15px;
-    letter-spacing:-0.01em;
-    padding:8px 2px;
-    transition:.18s ease;
+    display:flex;
+    align-items:center;
+    gap:6px;
   }
 
-  .nav-links a::after{
+  .nav-links a,
+  .nav-links button{
+    position:relative;
+    appearance:none;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+
+    text-decoration:none;
+    color:rgba(255,255,255,.84);
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:-0.01em;
+    padding:10px 2px;
+    transition:.18s ease;
+    font-family:inherit;
+  }
+
+  .nav-links a::after,
+  .nav-links button::after{
     content:"";
     position:absolute;
     left:0; right:0;
-    bottom:3px;
+    bottom:6px;
     height:2px;
     border-radius:999px;
     background:var(--pink);
@@ -131,17 +153,19 @@
     transition:.18s ease;
   }
 
-  .nav-links a:hover{
+  .nav-links a:hover,
+  .nav-links button:hover{
     color:white;
   }
-  .nav-links a:hover::after{
+  .nav-links a:hover::after,
+  .nav-links button:hover::after{
     transform:scaleX(1);
   }
 
   .nav-cta{
     text-decoration:none;
-    font-weight:900;
-    font-size:14px;
+    font-weight:800;
+    font-size:13px;
     letter-spacing:-0.01em;
     padding:12px 18px;
     border-radius:999px;
@@ -154,7 +178,6 @@
     transition:.18s ease;
     white-space:nowrap;
   }
-
   .nav-cta:hover{
     transform: translateY(-1px);
     box-shadow:
@@ -162,35 +185,85 @@
       0 0 36px rgba(249,144,166,.28);
   }
 
-  /* ============ HERO ============ */
+  /* Dropdown */
+  .dropdown{
+    position:absolute;
+    top:44px;
+    left:50%;
+    transform:translateX(-50%);
+    width:260px;
+    padding:10px;
+    border-radius:16px;
+    background: rgba(10,10,14,.92);
+    border:1px solid rgba(249,144,166,.18);
+    box-shadow: 0 30px 80px rgba(0,0,0,.65);
+    backdrop-filter: blur(14px);
+
+    opacity:0;
+    visibility:hidden;
+    translate: 0 -6px;
+    transition:.18s ease;
+  }
+
+  .nav-item:hover .dropdown{
+    opacity:1;
+    visibility:visible;
+    translate: 0 0;
+  }
+
+  .dropdown a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:12px;
+    text-decoration:none;
+    color: rgba(255,255,255,.86);
+    font-weight:600;
+  }
+
+  .dropdown a:hover{
+    background: rgba(249,144,166,.10);
+    color:white;
+  }
+
+  .dropdown small{
+    display:block;
+    color: rgba(255,240,246,.58);
+    font-weight:500;
+    margin-top:2px;
+    line-height:1.35;
+  }
+
+  /* ============ WRAP ============ */
   .wrap{
     max-width:1240px;
     margin:0 auto;
     padding:56px 22px 0;
+    position:relative;
   }
 
+  /* ============ HERO ============ */
   .hero{
     position:relative;
-    padding:44px 0 24px;
+    padding:44px 0 22px;
   }
 
   .title{
-    margin:0 0 24px;
+    margin:0 0 22px;
     text-transform:uppercase;
     font-weight:900;
-    letter-spacing:0.08em; /* wider spacing */
+    letter-spacing:0.07em;
     line-height:0.92;
 
-    /* BIG, oversized like Discord */
-    font-size: clamp(54px, 7.3vw, 112px);
+    font-size: clamp(56px, 7.4vw, 114px);
 
-    /* gradient text */
     background: linear-gradient(180deg, var(--pink) 0%, var(--rose) 95%);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
 
-    /* neon-ish glow, not overwhelming */
     text-shadow:
       0 2px 0 rgba(255,255,255,.06),
       0 0 14px rgba(249,144,166,.16),
@@ -202,43 +275,49 @@
     grid-template-columns: 1fr 1.35fr 1fr;
     gap:26px;
     align-items:center;
-    margin-top:18px;
+    margin-top:10px;
   }
 
   .intro{
-    font-size: clamp(16px, 1.5vw, 20px);
-    line-height:1.8;
+    font-size: clamp(15px, 1.25vw, 18px);
+    line-height:1.85;
     color:var(--muted);
     margin:0;
     text-shadow: 0 16px 36px rgba(0,0,0,.55);
   }
 
-  /* ============ DECOR: SHIELD (LEFT) ============ */
-  .shield{
-    position:relative;
-    width: min(270px, 100%);
+  /* ============ LCP LOGO (LEFT) ============ */
+  .logo-card{
+    width: min(300px, 100%);
     aspect-ratio: 1 / 1;
     margin: 0 auto;
-    filter: drop-shadow(0 22px 45px rgba(0,0,0,.6));
+    display:grid;
+    place-items:center;
+    position:relative;
+    filter: drop-shadow(0 24px 55px rgba(0,0,0,.7));
   }
 
-  .shield .glow{
+  .logo-card::before{
+    content:"";
     position:absolute;
-    inset:-18px;
-    border-radius:40px;
+    inset:-16px;
+    border-radius:28px;
     background: radial-gradient(circle at 40% 30%, rgba(249,144,166,.22), transparent 60%);
     filter: blur(6px);
     opacity:.9;
+    pointer-events:none;
   }
 
-  .shield svg{
-    position:relative;
-    width:100%;
-    height:100%;
+  .logo-img{
+    width:86%;
+    height:auto;
     display:block;
+    /* IMPORTANT: set your correct path here */
+    /* example: ./assets/LCP (1).webp */
+    border-radius:18px;
   }
 
-  /* ============ DECOR: ORB (RIGHT) ============ */
+  /* ============ ORB (RIGHT) ============ */
   .orb{
     position:relative;
     width: min(250px, 100%);
@@ -246,7 +325,6 @@
     margin: 0 auto;
     border-radius:999px;
 
-    /* base pink glass */
     background:
       radial-gradient(55% 45% at 30% 24%, rgba(255,255,255,.80), transparent 55%),
       radial-gradient(70% 70% at 70% 70%, rgba(0,0,0,.28), transparent 55%),
@@ -262,7 +340,6 @@
     transform: translateY(-6px);
   }
 
-  /* darker rose flecks */
   .orb::before{
     content:"";
     position:absolute; inset:0;
@@ -273,10 +350,8 @@
       radial-gradient(circle at 34% 72%, rgba(184,70,114,.62) 0 10px, transparent 11px),
       radial-gradient(circle at 76% 58%, rgba(184,70,114,.60) 0 9px, transparent 10px);
     opacity:.65;
-    filter: blur(.2px);
   }
 
-  /* polished highlight */
   .orb::after{
     content:"";
     position:absolute;
@@ -289,57 +364,64 @@
     transform: rotate(-14deg);
   }
 
-  /* scattered “3D” stickers (shops/eggs) */
+  /* ============ DECOR (reduced + pushed away from text) ============ */
   .sticker{
     position:absolute;
-    z-index:0;
-    filter: drop-shadow(0 22px 45px rgba(0,0,0,.65));
-    opacity:.9;
-    animation: float 7.5s ease-in-out infinite;
+    z-index:0; /* behind everything */
+    filter: drop-shadow(0 24px 55px rgba(0,0,0,.7));
+    opacity:.65;
+    pointer-events:none;
+    animation: float 8.2s ease-in-out infinite;
   }
 
   @keyframes float{
     0%{ transform: translateY(0) rotate(0deg); }
-    50%{ transform: translateY(-18px) rotate(1.2deg); }
+    50%{ transform: translateY(-14px) rotate(1deg); }
     100%{ transform: translateY(0) rotate(0deg); }
   }
 
   .egg-mini{
-    width:120px; height:150px;
+    width:110px; height:140px;
     border-radius: 60% 60% 58% 58%;
     background:
       radial-gradient(60% 60% at 30% 25%, rgba(255,255,255,.55), transparent 55%),
-      linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.18)),
+      linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.20)),
       linear-gradient(180deg, var(--pink), var(--rose));
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.10);
   }
 
   .shop-mini{
-    width:160px; height:130px;
+    width:150px; height:120px;
     border-radius:26px;
     background:
-      radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.40), rgba(255,255,255,.06) 55%, transparent 70%),
+      radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.35), rgba(255,255,255,.05) 55%, transparent 70%),
       linear-gradient(180deg, var(--pink), var(--rose));
-    border:1px solid rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.10);
     overflow:hidden;
   }
 
   .shop-mini svg{
     width:100%;
     height:100%;
-    padding:20px;
-    opacity:.92;
+    padding:22px;
+    opacity:.9;
     filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
   }
 
-  .sA{ left:-20px; top:140px; animation-duration:7.8s; }
-  .sB{ right:-30px; top:210px; animation-duration:9s; }
-  .sC{ left:40px; bottom:-40px; animation-duration:8.2s; opacity:.75; }
-  .sD{ right:60px; bottom:-20px; animation-duration:7.1s; opacity:.7; }
+  /* moved to margins so they do NOT cover the header */
+  .sA{ left:-30px; top:260px; }
+  .sB{ right:-40px; top:320px; animation-duration:9.1s; }
+  .sC{ left:40px; bottom:-10px; opacity:.45; }
+  .sD{ right:60px; bottom:0px; opacity:.45; animation-duration:7.6s; }
 
-  /* ============ SAFETY LIBRARY ============ */
+  /* Keep hero content above stickers */
+  .hero, .nav{ position:relative; z-index:2; }
+
+  /* ============ OUR GUIDELINES ============ */
   .section{
     padding:54px 0 0;
+    position:relative;
+    z-index:2;
   }
 
   .section-title{
@@ -368,11 +450,11 @@
   }
 
   .section-sub{
-    margin:0 0 26px;
-    max-width:900px;
+    margin:0 0 22px;
+    max-width:980px;
     color:var(--muted2);
-    font-size: clamp(16px, 1.35vw, 18px);
-    line-height:1.8;
+    font-size: clamp(14px, 1.15vw, 16px);
+    line-height:1.95;
   }
 
   .divider{
@@ -417,16 +499,16 @@
 
   .card h3{
     margin:0;
-    font-size:16px;
-    font-weight:900;
+    font-size:15px;
+    font-weight:800;
     letter-spacing:-0.01em;
   }
 
   .card p{
     margin:10px 0 16px;
     color:var(--muted2);
-    line-height:1.7;
-    font-size:14px;
+    line-height:1.75;
+    font-size:13px;
   }
 
   /* Buttons: black + pink border, invert on hover */
@@ -434,11 +516,11 @@
     display:inline-flex;
     align-items:center;
     gap:8px;
-    padding:12px 14px;
+    padding:11px 14px;
     border-radius:999px;
     text-decoration:none;
-    font-weight:900;
-    font-size:13px;
+    font-weight:800;
+    font-size:12px;
     letter-spacing:-0.01em;
 
     color:white;
@@ -465,6 +547,8 @@
     background: #06060a;
     border-top:1px solid rgba(255,255,255,.06);
     color: rgba(255,255,255,.60);
+    position:relative;
+    z-index:2;
   }
 
   .footer-inner{
@@ -486,7 +570,7 @@
   .footer-links a{
     color: rgba(255,255,255,.65);
     text-decoration:none;
-    font-weight:800;
+    font-weight:700;
   }
   .footer-links a:hover{
     color: var(--pink);
@@ -500,7 +584,7 @@
       gap:18px;
       text-align:left;
     }
-    .title{ letter-spacing:0.06em; }
+    .title{ letter-spacing:0.05em; }
     .cards{ grid-template-columns: 1fr; }
     .sticker{ display:none; }
   }
@@ -509,139 +593,130 @@
 
 <body>
 
-  <!-- NAV BAR (Discord layout: logo left, links center, button right) -->
+  <!-- NAV BAR -->
   <header class="nav">
     <div class="nav-inner">
       <a class="brand" href="#">
-        <!-- simple “Discord-ish” mark (not exact) -->
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7.2 7.8c2.9-2.1 6.7-2.1 9.6 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M6.2 18.2c3.9 2.8 7.7 2.8 11.6 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M8 16c-1.6-1.6-2.5-3.4-2.7-5.4-.1-1.1.2-2.4 1.1-3.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M16 16c1.6-1.6 2.5-3.4 2.7-5.4.1-1.1-.2-2.4-1.1-3.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="9.3" cy="12.2" r="1.2" fill="white"/>
-          <circle cx="14.7" cy="12.2" r="1.2" fill="white"/>
-        </svg>
-        Discord
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z" stroke="white" stroke-width="2"/>
+          </svg>
+        </span>
+        Lotus Customs
       </a>
 
       <nav class="nav-links" aria-label="Primary">
-        <a href="#">Safety</a>
-        <a href="#">Quests</a>
-        <a href="#">Support</a>
-        <a href="#">Blog</a>
-        <a href="#">Developers</a>
+        <div class="nav-item">
+          <a href="#">Safety</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#">Quests <span aria-hidden="true">💞⌄</span></a>
+          <div class="dropdown" role="menu" aria-label="Quests menu">
+            <a href="#"><span>Palette Prompts <small>Daily color challenges & ideas</small></span><span aria-hidden="true">🌸✨</span></a>
+            <a href="#"><span>Brand Sprints <small>Quick identity-building exercises</small></span><span aria-hidden="true">🎀📐</span></a>
+            <a href="#"><span>Creative Tasks <small>Small wins that level you up</small></span><span aria-hidden="true">💗🖌️</span></a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <button type="button">Support <span aria-hidden="true">🌸⌄</span></button>
+          <div class="dropdown" role="menu" aria-label="Support menu">
+            <a href="#"><span>Design Help Desk <small>Questions, fixes, and quick guidance</small></span><span aria-hidden="true">🌺📂</span></a>
+            <a href="#"><span>Request a Custom Asset <small>Ask for icons, panels, or visuals</small></span><span aria-hidden="true">🎀📐</span></a>
+            <a href="#"><span>Feedback & Critique <small>Grow your style with support</small></span><span aria-hidden="true">💗🖌️</span></a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="#">Blog</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#">Developers</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="#">Lotus AI <span aria-hidden="true">🌸✨⌄</span></a>
+          <div class="dropdown" role="menu" aria-label="Lotus AI menu">
+            <a href="#"><span>Palette Generator <small>Build clean color systems fast</small></span><span aria-hidden="true">🌸✨</span></a>
+            <a href="#"><span>Design Prompts <small>Ideas for logos, layouts, and icons</small></span><span aria-hidden="true">💗🖌️</span></a>
+            <a href="#"><span>Guidelines Assistant <small>Make rules clear & on-brand</small></span><span aria-hidden="true">🌺📂</span></a>
+          </div>
+        </div>
       </nav>
 
       <a class="nav-cta" href="#">Open Discord</a>
     </div>
   </header>
 
-  <!-- HERO -->
   <main class="wrap">
+    <!-- reduced decorations (kept away from the header) -->
+    <div class="sticker egg-mini sA"></div>
+    <div class="sticker shop-mini sB">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="sticker egg-mini sC"></div>
+    <div class="sticker shop-mini sD">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- HERO -->
     <section class="hero">
-      <!-- scattered decorative objects -->
-      <div class="sticker egg-mini sA"></div>
-
-      <div class="sticker shop-mini sB">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M4 10.5c.5 1.5 1.9 2.5 3.5 2.5S10 12 10 10.5c0 1.5 1.3 2.5 2.9 2.5S16 12 16 10.5c0 1.5 1.3 2.5 2.9 2.5S21 12 21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <div class="sticker egg-mini sC" style="transform: rotate(-10deg);"></div>
-      <div class="sticker shop-mini sD" style="transform: rotate(8deg); opacity:.72;">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <h1 class="title">WELCOME TO THE SAFETY CENTRE</h1>
+      <h1 class="title">WELCOME TO LOTUS CUSTOMS</h1>
 
       <div class="hero-row">
-        <!-- Shield left -->
-        <div class="shield" aria-hidden="true">
-          <div class="glow"></div>
-          <!-- glossy black shield with pink outline and white “face” -->
-          <svg viewBox="0 0 220 220">
-            <defs>
-              <linearGradient id="shieldFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#0b0b10"/>
-                <stop offset="0.6" stop-color="#050508"/>
-                <stop offset="1" stop-color="#000000"/>
-              </linearGradient>
-              <linearGradient id="shieldStroke" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#f990a6"/>
-                <stop offset="1" stop-color="#b64672"/>
-              </linearGradient>
-              <filter id="pinkGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="b"/>
-                <feMerge>
-                  <feMergeNode in="b"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            <path
-              d="M110 18
-                 C80 35, 52 40, 34 44
-                 V110
-                 C34 152, 65 186, 110 202
-                 C155 186, 186 152, 186 110
-                 V44
-                 C168 40, 140 35, 110 18Z"
-              fill="url(#shieldFill)"
-              stroke="url(#shieldStroke)"
-              stroke-width="6"
-              filter="url(#pinkGlow)"
-            />
-
-            <!-- subtle inner gloss -->
-            <path
-              d="M110 30
-                 C86 44, 62 48, 48 52
-                 V108
-                 C48 142, 73 170, 110 184
-                 C147 170, 172 142, 172 108
-                 V52
-                 C158 48, 134 44, 110 30Z"
-              fill="rgba(255,255,255,.05)"
-              opacity=".55"
-            />
-
-            <!-- “Discord face” simplified -->
-            <path d="M78 114c8 10 18 15 32 15s24-5 32-15"
-                  stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity=".95"/>
-            <circle cx="90" cy="102" r="7" fill="white"/>
-            <circle cx="130" cy="102" r="7" fill="white"/>
-          </svg>
+        <!-- LCP logo left -->
+        <div class="logo-card" aria-hidden="true">
+          <!-- Put your correct path here -->
+          <img class="logo-img" src="LCP (1).webp" alt="LCP Logo">
         </div>
 
         <!-- Intro text center -->
         <p class="intro">
-          Discord is the communications platform that enables you to build meaningful connections around the joy of
-          playing games through voice, video and text features. We’re deeply committed to creating positive experiences
-          for our users. In the Discord Safety Centre, you can find the resources you need — whether you’re a teenager,
-          parent, educator or a long-time Discord user.
+          Lotus Customs is a creative space built for people who love intentional design. Whether you’re refining your brand,
+          building a server aesthetic, or exploring new visual styles, our community gives you the tools and support to grow.
+          We’re committed to making design feel welcoming, accessible, and genuinely enjoyable. In the Lotus Knowledge Centre,
+          you’ll find resources for every kind of creator — from beginners experimenting with their first palette to experienced
+          designers shaping full visual identities.
         </p>
 
-        <!-- Orb right -->
+        <!-- orb right -->
         <div class="orb" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!-- SAFETY LIBRARY -->
+    <!-- OUR GUIDELINES -->
     <section class="section">
-      <h2 class="section-title">Safety Library</h2>
+      <h2 class="section-title">OUR GUIDELINES</h2>
+
       <p class="section-sub">
-        Everything you could ever want to know about staying safe on Discord — with guides, resources, and help
-        categories designed to be clear, modern, and easy to navigate.
+        Lotus Customs presents its navigation in a clean, intentional layout that mirrors the precision of the design work the community is known for. At the top of the interface, visitors find a row of categories that feel both minimal and expressive, each one crafted to guide users toward the resources they need without overwhelming them. The structure is simple, but the visual language is unmistakably Lotus: soft edges, balanced spacing, and a subtle emphasis on clarity.
+        <br><br>
+        The section inspired by the “Support” tab in the image becomes a polished, design-centric hub for creators. When someone hovers over it, a dropdown unfolds with smooth motion, revealing a set of curated options that feel like part of a cohesive brand system. Instead of generic labels, each item is written with intention, helping users understand exactly where to go for help, feedback, or guidance. The dropdown itself uses a soft pink accent, matching Lotus Customs’ aesthetic and reinforcing the idea that support is part of the creative experience.
+        <br><br>
+        To replace the original Discord phrasing, Lotus Customs introduces itself as a space built around the joy of design rather than gaming. The tone stays warm and community-focused, but the emphasis shifts toward creativity, visual identity, and collaborative growth. The rewritten text highlights how Lotus Customs supports designers of all levels, from beginners experimenting with their first palettes to experienced creators refining full branding systems. It mirrors the structure of the Discord Safety Centre description, but with a design-studio personality.
+        <br><br>
+        At the top of the page, where ChatGPT or AI assistance would appear, Lotus Customs uses custom pink emojis to signal interactive elements. These emojis act as visual anchors, guiding users toward expandable sections, help menus, or AI-powered tools. Each emoji is detailed, expressive, and themed around creativity — for example: 🌸✨, 🎀📐, 💗🖌️, 🌺📂. They’re not just decorative; they function as symbols that indicate the presence of a dropdown, a tooltip, or a collapsible menu.
+        <br><br>
+        These pink emojis appear beside the AI assistant’s name or icon, giving the interface a friendly, approachable feel. When a user hovers over them, the symbol subtly shifts or glows, signaling that more information is available. This mirrors the behavior of the arrow in the “Quests ⌄” image, but with a softer, more artistic twist. Instead of a plain arrow, Lotus Customs uses a stylized pink dropdown marker like: 💞⌄ or 🌸⌄ — something that feels custom, not default.
+        <br><br>
+        The dropdown triggered by these emojis opens into a compact panel that blends seamlessly with the rest of the site. Inside, users might find quick links to AI tools, design prompts, palette generators, or help articles. The panel uses the same pink accents, rounded corners, and soft shadows that define the Lotus brand. Every element is intentional, reinforcing the idea that even utility menus can be beautiful.
+        <br><br>
+        The rewritten description for Lotus Customs emphasizes the server’s commitment to positive, supportive experiences. Just as Discord highlights safety and community, Lotus Customs highlights creativity, learning, and collaboration. The tone is reassuring without being formal, and expressive without being overwhelming. It invites users to explore, experiment, and grow — all within a space designed to feel premium and welcoming.
+        <br><br>
+        The “Resources” section becomes the Lotus Knowledge Centre, a place where designers can find tutorials, guides, FAQs, and community standards. Each item in the dropdown is labeled clearly, using language that feels both professional and friendly. Instead of “Help Centre,” you might see “Design Help Desk.” Instead of “Submit a Request,” you might see “Request a Custom Asset.” The structure stays familiar, but the branding becomes unmistakably Lotus.
+        <br><br>
+        The presence of the pink dropdown emojis ties the entire interface together. They act as a visual signature — a small but memorable detail that tells users they’re in a space that values aesthetics. They also help differentiate Lotus Customs from generic design servers by giving the UI a personality that feels handcrafted. These emojis can be reused across the site for consistency, marking expandable sections, interactive elements, or AI-powered features.
+        <br><br>
+        Overall, the redesigned text and interface elements create a cohesive experience that mirrors the professionalism and creativity of Lotus Customs. The navigation is intuitive, the language is warm, and the visual details — especially the pink dropdown emojis — make the site feel alive and expressive. It’s a perfect blend of functionality and artistry, just like the work your community produces.
       </p>
 
       <div class="divider"></div>
@@ -669,15 +744,16 @@
           <div class="card-top">
             <div class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 22s8-4 8-10V6l-8-3-8 3v6c0 6 8 10 8 10z" stroke="white" stroke-width="2"/>
-                <path d="M9 12l2 2 4-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 12a8 8 0 1016 0 8 8 0 10-16 0z" stroke="white" stroke-width="2"/>
+                <path d="M12 8v5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 16h.01" stroke="white" stroke-width="3" stroke-linecap="round"/>
               </svg>
             </div>
-            <h3>Reporting</h3>
+            <h3>Help & Support</h3>
           </div>
-          <p>How to report issues quickly, what happens next, and what to expect.</p>
+          <p>Get help with design questions, feedback, and creator tools.</p>
           <a class="btn" href="#">
-            Report
+            Get Help
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -688,16 +764,15 @@
           <div class="card-top">
             <div class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12a8 8 0 1016 0 8 8 0 10-16 0z" stroke="white" stroke-width="2"/>
-                <path d="M12 8v5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                <path d="M12 16h.01" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                <path d="M7 7h10v10H7z" stroke="white" stroke-width="2"/>
+                <path d="M9 9h6M9 12h6M9 15h4" stroke="white" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
-            <h3>Support</h3>
+            <h3>Lotus Knowledge Centre</h3>
           </div>
-          <p>Get help with account safety, moderation tools, and common safety questions.</p>
+          <p>Tutorials, guides, FAQs, and resources for every kind of creator.</p>
           <a class="btn" href="#">
-            Get Help
+            Browse
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -711,7 +786,7 @@
 
   <footer>
     <div class="footer-inner">
-      <div>© 2026 Safety Centre • Built with a pink-and-black Discord-inspired theme.</div>
+      <div>© 2026 Lotus Customs • Pink + black UI identity.</div>
       <div class="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
