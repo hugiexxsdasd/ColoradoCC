@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Colorado CC</title>
+<title>Safety Centre</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,44 +11,39 @@
 
 <style>
   :root{
-    --bg0:#0b1020;
-    --bg1:#1a2a63;
-    --bg2:#5b8cff;
-    --bg3:#aee3ff;
+    --pink:#f990a6;
+    --rose:#d85b86;        /* deeper rose-pink for gradients */
+    --rose2:#b64672;       /* even deeper for shadows */
+    --bgTop:#000000;
+    --bgMid:#0a0a0f;
+    --bgBot:#121218;
 
-    --pink0:#ff2ea6;
-    --pink1:#ff6cc8;
-    --pink2:#ffb3e6;
+    --text: rgba(255,255,255,.92);
+    --muted: rgba(255,240,246,.82);
+    --muted2: rgba(255,240,246,.68);
 
-    --white: rgba(255,255,255,.92);
-    --muted: rgba(255,255,255,.78);
-    --muted2: rgba(255,255,255,.62);
+    --line: rgba(249,144,166,.22);
+    --line2: rgba(249,144,166,.14);
   }
 
   *{ box-sizing:border-box; }
-  html,body{ height:100%; }
+  html, body{ height:100%; }
 
   body{
     margin:0;
-    font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color:white;
+    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
     overflow-x:hidden;
 
-    /* Discord-ish depth + bloom */
+    /* layered black gradient background */
     background:
-      radial-gradient(1100px 700px at 50% -220px, rgba(174,227,255,.58), transparent 60%),
-      radial-gradient(900px 520px at 20% 10%, rgba(255,108,200,.18), transparent 62%),
-      radial-gradient(900px 520px at 80% 20%, rgba(255,46,166,.14), transparent 60%),
-      linear-gradient(180deg,
-        var(--bg3) 0%,
-        var(--bg2) 22%,
-        var(--bg1) 52%,
-        #091631 78%,
-        #02050c 100%
-      );
+      radial-gradient(1200px 600px at 50% -220px, rgba(249,144,166,.14), transparent 60%),
+      radial-gradient(900px 520px at 15% 18%, rgba(249,144,166,.08), transparent 60%),
+      radial-gradient(900px 520px at 85% 22%, rgba(249,144,166,.06), transparent 62%),
+      linear-gradient(180deg, var(--bgTop) 0%, var(--bgMid) 45%, var(--bgBot) 100%);
   }
 
-  /* Subtle scan/texture so it feels “Discord-y” */
+  /* subtle texture like Discord hero */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -56,338 +51,674 @@
     background:
       repeating-linear-gradient(
         180deg,
-        rgba(255,255,255,.04) 0px,
-        rgba(255,255,255,.04) 1px,
+        rgba(255,255,255,.045) 0px,
+        rgba(255,255,255,.045) 1px,
         transparent 2px,
-        transparent 6px
+        transparent 7px
       );
+    opacity:.12;
     mix-blend-mode:soft-light;
-    opacity:.25;
   }
 
-  /* NAV */
+  /* ============ NAV ============ */
   .nav{
-    position:fixed;
-    top:0; left:0; right:0;
+    position:sticky;
+    top:0;
     z-index:50;
-    display:flex;
-    justify-content:center;
-    padding:22px 18px;
+    width:100%;
+    padding:18px 22px;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.18));
+    border-bottom:1px solid rgba(255,255,255,.06);
   }
 
   .nav-inner{
-    width:min(1200px, 100%);
+    max-width:1240px;
+    margin:0 auto;
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:28px;
+    justify-content:space-between;
+    gap:18px;
+  }
 
-    padding:14px 18px;
-    border-radius:999px;
-    background:rgba(0,0,0,.18);
-    border:1px solid rgba(255,255,255,.12);
-    backdrop-filter: blur(10px);
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--text);
+    font-weight:900;
+    letter-spacing:-0.02em;
+  }
+
+  .brand svg{
+    width:34px;
+    height:34px;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.5));
   }
 
   .nav-links{
     display:flex;
-    gap:38px;
-    font-weight:800;
-    font-size:16px;
-    letter-spacing:-0.01em;
+    gap:36px;
+    align-items:center;
+    justify-content:center;
+    flex:1;
   }
 
   .nav-links a{
-    color:rgba(255,255,255,.85);
+    position:relative;
     text-decoration:none;
+    color:rgba(255,255,255,.84);
+    font-weight:800;
+    font-size:15px;
+    letter-spacing:-0.01em;
+    padding:8px 2px;
     transition:.18s ease;
   }
-  .nav-links a:hover{ color:white; transform:translateY(-1px); }
 
-  /* LAYOUT */
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; right:0;
+    bottom:3px;
+    height:2px;
+    border-radius:999px;
+    background:var(--pink);
+    transform:scaleX(0);
+    transform-origin:center;
+    opacity:.9;
+    filter: drop-shadow(0 0 10px rgba(249,144,166,.65));
+    transition:.18s ease;
+  }
+
+  .nav-links a:hover{
+    color:white;
+  }
+  .nav-links a:hover::after{
+    transform:scaleX(1);
+  }
+
+  .nav-cta{
+    text-decoration:none;
+    font-weight:900;
+    font-size:14px;
+    letter-spacing:-0.01em;
+    padding:12px 18px;
+    border-radius:999px;
+    color:white;
+    background: linear-gradient(180deg, var(--pink), var(--rose));
+    box-shadow:
+      0 18px 45px rgba(0,0,0,.45),
+      0 0 28px rgba(249,144,166,.22);
+    border:1px solid rgba(255,255,255,.10);
+    transition:.18s ease;
+    white-space:nowrap;
+  }
+
+  .nav-cta:hover{
+    transform: translateY(-1px);
+    box-shadow:
+      0 22px 55px rgba(0,0,0,.5),
+      0 0 36px rgba(249,144,166,.28);
+  }
+
+  /* ============ HERO ============ */
   .wrap{
+    max-width:1240px;
+    margin:0 auto;
+    padding:56px 22px 0;
+  }
+
+  .hero{
     position:relative;
-    min-height:100vh;
+    padding:44px 0 24px;
+  }
+
+  .title{
+    margin:0 0 24px;
+    text-transform:uppercase;
+    font-weight:900;
+    letter-spacing:0.08em; /* wider spacing */
+    line-height:0.92;
+
+    /* BIG, oversized like Discord */
+    font-size: clamp(54px, 7.3vw, 112px);
+
+    /* gradient text */
+    background: linear-gradient(180deg, var(--pink) 0%, var(--rose) 95%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+
+    /* neon-ish glow, not overwhelming */
+    text-shadow:
+      0 2px 0 rgba(255,255,255,.06),
+      0 0 14px rgba(249,144,166,.16),
+      0 14px 40px rgba(0,0,0,.65);
+  }
+
+  .hero-row{
+    display:grid;
+    grid-template-columns: 1fr 1.35fr 1fr;
+    gap:26px;
+    align-items:center;
+    margin-top:18px;
+  }
+
+  .intro{
+    font-size: clamp(16px, 1.5vw, 20px);
+    line-height:1.8;
+    color:var(--muted);
+    margin:0;
+    text-shadow: 0 16px 36px rgba(0,0,0,.55);
+  }
+
+  /* ============ DECOR: SHIELD (LEFT) ============ */
+  .shield{
+    position:relative;
+    width: min(270px, 100%);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    filter: drop-shadow(0 22px 45px rgba(0,0,0,.6));
+  }
+
+  .shield .glow{
+    position:absolute;
+    inset:-18px;
+    border-radius:40px;
+    background: radial-gradient(circle at 40% 30%, rgba(249,144,166,.22), transparent 60%);
+    filter: blur(6px);
+    opacity:.9;
+  }
+
+  .shield svg{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  /* ============ DECOR: ORB (RIGHT) ============ */
+  .orb{
+    position:relative;
+    width: min(250px, 100%);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border-radius:999px;
+
+    /* base pink glass */
+    background:
+      radial-gradient(55% 45% at 30% 24%, rgba(255,255,255,.80), transparent 55%),
+      radial-gradient(70% 70% at 70% 70%, rgba(0,0,0,.28), transparent 55%),
+      radial-gradient(circle at 45% 55%, rgba(255,255,255,.14), transparent 55%),
+      linear-gradient(180deg, var(--pink), var(--rose));
+
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:
+      0 30px 70px rgba(0,0,0,.65),
+      0 0 46px rgba(249,144,166,.12);
+
+    overflow:hidden;
+    transform: translateY(-6px);
+  }
+
+  /* darker rose flecks */
+  .orb::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 22% 35%, rgba(184,70,114,.75) 0 15px, transparent 16px),
+      radial-gradient(circle at 62% 28%, rgba(184,70,114,.70) 0 11px, transparent 12px),
+      radial-gradient(circle at 55% 62%, rgba(184,70,114,.72) 0 18px, transparent 19px),
+      radial-gradient(circle at 34% 72%, rgba(184,70,114,.62) 0 10px, transparent 11px),
+      radial-gradient(circle at 76% 58%, rgba(184,70,114,.60) 0 9px, transparent 10px);
+    opacity:.65;
+    filter: blur(.2px);
+  }
+
+  /* polished highlight */
+  .orb::after{
+    content:"";
+    position:absolute;
+    inset:14px 18px auto auto;
+    width:52%;
+    height:52%;
+    border-radius:999px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.65), transparent 62%);
+    opacity:.55;
+    transform: rotate(-14deg);
+  }
+
+  /* scattered “3D” stickers (shops/eggs) */
+  .sticker{
+    position:absolute;
+    z-index:0;
+    filter: drop-shadow(0 22px 45px rgba(0,0,0,.65));
+    opacity:.9;
+    animation: float 7.5s ease-in-out infinite;
+  }
+
+  @keyframes float{
+    0%{ transform: translateY(0) rotate(0deg); }
+    50%{ transform: translateY(-18px) rotate(1.2deg); }
+    100%{ transform: translateY(0) rotate(0deg); }
+  }
+
+  .egg-mini{
+    width:120px; height:150px;
+    border-radius: 60% 60% 58% 58%;
+    background:
+      radial-gradient(60% 60% at 30% 25%, rgba(255,255,255,.55), transparent 55%),
+      linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.18)),
+      linear-gradient(180deg, var(--pink), var(--rose));
+    border:1px solid rgba(255,255,255,.12);
+  }
+
+  .shop-mini{
+    width:160px; height:130px;
+    border-radius:26px;
+    background:
+      radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.40), rgba(255,255,255,.06) 55%, transparent 70%),
+      linear-gradient(180deg, var(--pink), var(--rose));
+    border:1px solid rgba(255,255,255,.12);
+    overflow:hidden;
+  }
+
+  .shop-mini svg{
+    width:100%;
+    height:100%;
+    padding:20px;
+    opacity:.92;
+    filter: drop-shadow(0 12px 18px rgba(0,0,0,.35));
+  }
+
+  .sA{ left:-20px; top:140px; animation-duration:7.8s; }
+  .sB{ right:-30px; top:210px; animation-duration:9s; }
+  .sC{ left:40px; bottom:-40px; animation-duration:8.2s; opacity:.75; }
+  .sD{ right:60px; bottom:-20px; animation-duration:7.1s; opacity:.7; }
+
+  /* ============ SAFETY LIBRARY ============ */
+  .section{
+    padding:54px 0 0;
+  }
+
+  .section-title{
+    margin:0 0 10px;
+    font-size: clamp(28px, 2.6vw, 44px);
+    font-weight:900;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.96);
+    position:relative;
+    display:inline-block;
+    padding-bottom:12px;
+  }
+
+  .section-title::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:88%;
+    height:3px;
+    border-radius:999px;
+    background: var(--pink);
+    filter: drop-shadow(0 0 12px rgba(249,144,166,.55));
+    opacity:.95;
+  }
+
+  .section-sub{
+    margin:0 0 26px;
+    max-width:900px;
+    color:var(--muted2);
+    font-size: clamp(16px, 1.35vw, 18px);
+    line-height:1.8;
+  }
+
+  .divider{
+    height:1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+    margin:26px 0;
+  }
+
+  .cards{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:18px;
+    padding-bottom:34px;
+  }
+
+  .card{
+    background: rgba(255,255,255,.03);
+    border:1px solid rgba(249,144,166,.14);
+    border-radius:18px;
+    padding:18px 18px 16px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+  }
+
+  .card-top{
     display:flex;
     align-items:center;
-    justify-content:center;
-    padding:110px 24px 80px;
+    gap:10px;
+    margin-bottom:8px;
   }
 
-  /* HERO */
-  .hero{
-    width:min(1200px, 100%);
-    text-align:center;
-    position:relative;
-    z-index:10;
+  .icon{
+    width:34px;
+    height:34px;
+    border-radius:12px;
+    background: rgba(0,0,0,.35);
+    border:1px solid rgba(249,144,166,.18);
+    display:grid;
+    place-items:center;
   }
 
-  /* MASSIVE DISCORD-LIKE HEADLINE */
-  .hero h1{
-    margin:0 0 26px;
+  .icon svg{ width:18px; height:18px; opacity:.92; }
+
+  .card h3{
+    margin:0;
+    font-size:16px;
     font-weight:900;
-    letter-spacing:-0.075em;
-    line-height:.82;
-
-    /* HUGE */
-    font-size:clamp(110px, 18vw, 260px);
-
-    /* Slight embossed glow */
-    text-shadow:
-      0 2px 0 rgba(255,255,255,.08),
-      0 22px 50px rgba(0,0,0,.35);
+    letter-spacing:-0.01em;
   }
 
-  /* BIG BODY TEXT (way bigger than before) */
-  .hero p{
-    margin:0 auto 18px;
-    max-width:1050px;
-
-    font-weight:600;
-    letter-spacing:-0.02em;
-    line-height:1.55;
-
-    /* HUGE */
-    font-size:clamp(22px, 3.4vw, 44px);
-
-    color:var(--muted);
-    text-shadow: 0 18px 40px rgba(0,0,0,.30);
+  .card p{
+    margin:10px 0 16px;
+    color:var(--muted2);
+    line-height:1.7;
+    font-size:14px;
   }
 
-  .hero p:last-of-type{ margin-bottom:34px; }
+  /* Buttons: black + pink border, invert on hover */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 14px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:900;
+    font-size:13px;
+    letter-spacing:-0.01em;
 
-  /* BUTTONS */
-  .buttons{
-    margin-top:22px;
+    color:white;
+    background: rgba(0,0,0,.45);
+    border:1px solid rgba(249,144,166,.55);
+
+    transition:.18s ease;
+  }
+
+  .btn:hover{
+    background: var(--pink);
+    color:#000;
+    border-color: rgba(249,144,166,.95);
+    box-shadow: 0 0 22px rgba(249,144,166,.22);
+    transform: translateY(-1px);
+  }
+
+  .btn svg{ width:16px; height:16px; opacity:.9; }
+
+  /* ============ FOOTER ============ */
+  footer{
+    margin-top:56px;
+    padding:30px 22px;
+    background: #06060a;
+    border-top:1px solid rgba(255,255,255,.06);
+    color: rgba(255,255,255,.60);
+  }
+
+  .footer-inner{
+    max-width:1240px;
+    margin:0 auto;
     display:flex;
-    justify-content:center;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .footer-links{
+    display:flex;
     gap:18px;
     flex-wrap:wrap;
   }
 
-  .btn{
-    padding:18px 30px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.06);
-    color:white;
+  .footer-links a{
+    color: rgba(255,255,255,.65);
     text-decoration:none;
-    font-weight:900;
-    font-size:16px;
-    letter-spacing:-0.01em;
-    transition:.18s ease;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+    font-weight:800;
   }
-  .btn:hover{
-    background:rgba(255,255,255,.14);
-    transform:translateY(-2px);
+  .footer-links a:hover{
+    color: var(--pink);
   }
 
-  .btn.primary{
-    border-color: rgba(255,255,255,.22);
-    background:
-      radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,.35), rgba(255,255,255,.06) 55%),
-      linear-gradient(180deg, rgba(255,108,200,.28), rgba(255,46,166,.14));
-  }
-
-  /* ===== PINK “3D” STICKERS (no external images) =====
-     These are CSS-made, glossy, realistic-ish blobs: Eggs + Shops + Cubes.
-  */
-
-  .sticker{
-    position:absolute;
-    z-index:2;
-    filter: drop-shadow(0 24px 45px rgba(0,0,0,.35));
-    animation: float 7s ease-in-out infinite;
-    transform-origin:center;
-    opacity:.98;
-  }
-
-  @keyframes float{
-    0%{ transform:translateY(0) rotate(0deg); }
-    50%{ transform:translateY(-26px) rotate(1.5deg); }
-    100%{ transform:translateY(0) rotate(0deg); }
-  }
-
-  /* Gloss highlight layer */
-  .sticker::before{
-    content:"";
-    position:absolute; inset:0;
-    border-radius:inherit;
-    background:
-      radial-gradient(80% 60% at 30% 25%, rgba(255,255,255,.78), transparent 60%),
-      radial-gradient(60% 40% at 70% 30%, rgba(255,255,255,.20), transparent 62%),
-      radial-gradient(110% 110% at 50% 90%, rgba(0,0,0,.18), transparent 55%);
-    mix-blend-mode: screen;
-    pointer-events:none;
-  }
-
-  /* EGG */
-  .egg{
-    width:170px;
-    height:220px;
-    border-radius: 60% 60% 58% 58%;
-    background:
-      radial-gradient(60% 70% at 35% 20%, rgba(255,255,255,.55), transparent 55%),
-      radial-gradient(75% 85% at 60% 55%, rgba(255,179,230,.55), rgba(255,108,200,.18) 60%, transparent 70%),
-      linear-gradient(180deg, var(--pink2) 0%, var(--pink1) 35%, var(--pink0) 100%);
-    border:1px solid rgba(255,255,255,.16);
-  }
-
-  /* Egg spots */
-  .egg::after{
-    content:"";
-    position:absolute; inset:18px;
-    border-radius:inherit;
-    background:
-      radial-gradient(circle at 22% 35%, rgba(255,255,255,.26) 0 16px, transparent 17px),
-      radial-gradient(circle at 62% 30%, rgba(255,255,255,.20) 0 12px, transparent 13px),
-      radial-gradient(circle at 52% 62%, rgba(255,255,255,.22) 0 18px, transparent 19px),
-      radial-gradient(circle at 28% 70%, rgba(255,255,255,.14) 0 10px, transparent 11px);
-    opacity:.55;
-    pointer-events:none;
-    filter: blur(.2px);
-  }
-
-  /* SHOP (rounded “3D” storefront tile) */
-  .shop{
-    width:210px;
-    height:170px;
-    border-radius:28px;
-    background:
-      radial-gradient(120% 120% at 20% 0%, rgba(255,255,255,.42), rgba(255,255,255,.06) 55%, transparent 70%),
-      linear-gradient(180deg, rgba(255,179,230,.92) 0%, rgba(255,108,200,.88) 45%, rgba(255,46,166,.92) 100%);
-    border:1px solid rgba(255,255,255,.16);
-  }
-
-  /* Shop icon lines */
-  .shop svg{
-    position:absolute;
-    inset:22px;
-    width:calc(100% - 44px);
-    height:calc(100% - 44px);
-    opacity:.92;
-    filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
-  }
-
-  /* CUBE (discord-ish “floating object”) */
-  .cube{
-    width:170px;
-    height:170px;
-    border-radius:34px;
-    background:
-      radial-gradient(90% 90% at 30% 20%, rgba(255,255,255,.55), transparent 55%),
-      linear-gradient(135deg, rgba(255,179,230,.95), rgba(255,108,200,.85) 55%, rgba(255,46,166,.95));
-    border:1px solid rgba(255,255,255,.14);
-    transform: rotate(10deg);
-  }
-
-  .cube::after{
-    content:"";
-    position:absolute;
-    inset:18px;
-    border-radius:26px;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.30), transparent 55%),
-      radial-gradient(55% 55% at 55% 60%, rgba(0,0,0,.18), transparent 60%);
-    opacity:.65;
-    pointer-events:none;
-  }
-
-  /* Sticker positions */
-  .s1{ left:6%; top:22%; animation-duration:6.4s; }
-  .s2{ right:8%; top:20%; animation-duration:7.6s; }
-  .s3{ right:6%; bottom:12%; animation-duration:8.2s; }
-  .s4{ left:8%; bottom:14%; animation-duration:7.1s; }
-  .s5{ left:50%; top:14%; transform:translateX(-50%) rotate(-6deg); animation-duration:9s; opacity:.82; }
-
-  /* Soft glow blobs behind stickers */
-  .glow{
-    position:absolute;
-    inset:auto;
-    width:520px;
-    height:520px;
-    border-radius:999px;
-    background: radial-gradient(circle at 30% 30%, rgba(255,108,200,.18), transparent 62%);
-    filter: blur(8px);
-    opacity:.8;
-    z-index:1;
-    pointer-events:none;
-  }
-  .g1{ left:-140px; top:140px; }
-  .g2{ right:-160px; bottom:40px; background: radial-gradient(circle at 40% 40%, rgba(255,46,166,.16), transparent 60%); }
-
-  /* MOBILE */
+  /* ============ RESPONSIVE ============ */
   @media (max-width: 980px){
-    .nav-inner{ gap:18px; justify-content:center; }
-    .nav-links{ gap:18px; font-size:14px; flex-wrap:wrap; justify-content:center; }
-
-    .wrap{ padding-top:120px; }
-    .hero h1{ font-size: clamp(78px, 18vw, 170px); }
-    .hero p{ font-size: clamp(18px, 4.6vw, 28px); max-width: 720px; }
-
-    /* keep a couple stickers, hide the rest */
-    .s3,.s4,.s5{ display:none; }
-    .egg{ width:140px; height:190px; }
-    .shop{ width:180px; height:150px; }
+    .nav-links{ display:none; }
+    .hero-row{
+      grid-template-columns: 1fr;
+      gap:18px;
+      text-align:left;
+    }
+    .title{ letter-spacing:0.06em; }
+    .cards{ grid-template-columns: 1fr; }
+    .sticker{ display:none; }
   }
 </style>
 </head>
 
 <body>
-  <!-- NAV -->
-  <div class="nav">
+
+  <!-- NAV BAR (Discord layout: logo left, links center, button right) -->
+  <header class="nav">
     <div class="nav-inner">
-      <div class="nav-links">
-        <a href="#">Guidelines</a>
+      <a class="brand" href="#">
+        <!-- simple “Discord-ish” mark (not exact) -->
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7.2 7.8c2.9-2.1 6.7-2.1 9.6 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6.2 18.2c3.9 2.8 7.7 2.8 11.6 0" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 16c-1.6-1.6-2.5-3.4-2.7-5.4-.1-1.1.2-2.4 1.1-3.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 16c1.6-1.6 2.5-3.4 2.7-5.4.1-1.1-.2-2.4-1.1-3.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="9.3" cy="12.2" r="1.2" fill="white"/>
+          <circle cx="14.7" cy="12.2" r="1.2" fill="white"/>
+        </svg>
+        Discord
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#">Safety</a>
+        <a href="#">Quests</a>
         <a href="#">Support</a>
-        <a href="#">Tickets</a>
-        <a href="#">Discover</a>
-      </div>
+        <a href="#">Blog</a>
+        <a href="#">Developers</a>
+      </nav>
+
+      <a class="nav-cta" href="#">Open Discord</a>
     </div>
-  </div>
-
-  <!-- BACK GLOWS -->
-  <div class="glow g1"></div>
-  <div class="glow g2"></div>
-
-  <!-- PINK “3D” STICKERS -->
-  <div class="sticker egg s1"></div>
-
-  <div class="sticker shop s2">
-    <!-- simple storefront icon -->
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
-      <path d="M4 10.5c.5 1.5 1.9 2.5 3.5 2.5S10 12 10 10.5c0 1.5 1.3 2.5 2.9 2.5S16 12 16 10.5c0 1.5 1.3 2.5 2.9 2.5S21 12 21 10.5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
-      <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-
-  <div class="sticker cube s3"></div>
-  <div class="sticker egg s4" style="animation-duration:8.8s; opacity:.88;"></div>
-  <div class="sticker cube s5"></div>
+  </header>
 
   <!-- HERO -->
   <main class="wrap">
     <section class="hero">
-      <h1>WELCOME</h1>
+      <!-- scattered decorative objects -->
+      <div class="sticker egg-mini sA"></div>
 
-      <p>
-        Colorado Roleplay is built to bring people together through immersive storytelling, shared scenes, and collaborative world-building. Every member uses the server differently—some stick to tight-knit friend groups, others participate in large public RP spaces, and many move fluidly between both.
-      </p>
+      <div class="sticker shop-mini sB">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4 10.5c.5 1.5 1.9 2.5 3.5 2.5S10 12 10 10.5c0 1.5 1.3 2.5 2.9 2.5S16 12 16 10.5c0 1.5 1.3 2.5 2.9 2.5S21 12 21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
 
-      <p>
-        Across Colorado Roleplay, we design our systems, rules, and staff practices with privacy and transparency in mind. We want you to always understand how your information, your characters, and your interactions are handled.
-      </p>
+      <div class="sticker egg-mini sC" style="transform: rotate(-10deg);"></div>
+      <div class="sticker shop-mini sD" style="transform: rotate(8deg); opacity:.72;">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 10.5L5.2 4.6C5.4 4.2 5.8 4 6.2 4h11.6c.4 0 .8.2 1 .6L21 10.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6.5 13.5V20h11V13.5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 20v-5h4v5" stroke="rgba(255,255,255,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
 
-      <div class="buttons">
-        <a class="btn primary" href="#">Join Discord</a>
-        <a class="btn" href="#">Open Ticket</a>
-        <a class="btn" href="#">View Rules</a>
+      <h1 class="title">WELCOME TO THE SAFETY CENTRE</h1>
+
+      <div class="hero-row">
+        <!-- Shield left -->
+        <div class="shield" aria-hidden="true">
+          <div class="glow"></div>
+          <!-- glossy black shield with pink outline and white “face” -->
+          <svg viewBox="0 0 220 220">
+            <defs>
+              <linearGradient id="shieldFill" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#0b0b10"/>
+                <stop offset="0.6" stop-color="#050508"/>
+                <stop offset="1" stop-color="#000000"/>
+              </linearGradient>
+              <linearGradient id="shieldStroke" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#f990a6"/>
+                <stop offset="1" stop-color="#b64672"/>
+              </linearGradient>
+              <filter id="pinkGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="b"/>
+                <feMerge>
+                  <feMergeNode in="b"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <path
+              d="M110 18
+                 C80 35, 52 40, 34 44
+                 V110
+                 C34 152, 65 186, 110 202
+                 C155 186, 186 152, 186 110
+                 V44
+                 C168 40, 140 35, 110 18Z"
+              fill="url(#shieldFill)"
+              stroke="url(#shieldStroke)"
+              stroke-width="6"
+              filter="url(#pinkGlow)"
+            />
+
+            <!-- subtle inner gloss -->
+            <path
+              d="M110 30
+                 C86 44, 62 48, 48 52
+                 V108
+                 C48 142, 73 170, 110 184
+                 C147 170, 172 142, 172 108
+                 V52
+                 C158 48, 134 44, 110 30Z"
+              fill="rgba(255,255,255,.05)"
+              opacity=".55"
+            />
+
+            <!-- “Discord face” simplified -->
+            <path d="M78 114c8 10 18 15 32 15s24-5 32-15"
+                  stroke="white" stroke-width="10" stroke-linecap="round" fill="none" opacity=".95"/>
+            <circle cx="90" cy="102" r="7" fill="white"/>
+            <circle cx="130" cy="102" r="7" fill="white"/>
+          </svg>
+        </div>
+
+        <!-- Intro text center -->
+        <p class="intro">
+          Discord is the communications platform that enables you to build meaningful connections around the joy of
+          playing games through voice, video and text features. We’re deeply committed to creating positive experiences
+          for our users. In the Discord Safety Centre, you can find the resources you need — whether you’re a teenager,
+          parent, educator or a long-time Discord user.
+        </p>
+
+        <!-- Orb right -->
+        <div class="orb" aria-hidden="true"></div>
       </div>
     </section>
+
+    <!-- SAFETY LIBRARY -->
+    <section class="section">
+      <h2 class="section-title">Safety Library</h2>
+      <p class="section-sub">
+        Everything you could ever want to know about staying safe on Discord — with guides, resources, and help
+        categories designed to be clear, modern, and easy to navigate.
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3l7 4v6c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z" stroke="white" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Guidelines</h3>
+          </div>
+          <p>Community rules, best practices, and how we keep things clean and fair.</p>
+          <a class="btn" href="#">
+            View
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V6l-8-3-8 3v6c0 6 8 10 8 10z" stroke="white" stroke-width="2"/>
+                <path d="M9 12l2 2 4-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Reporting</h3>
+          </div>
+          <p>How to report issues quickly, what happens next, and what to expect.</p>
+          <a class="btn" href="#">
+            Report
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 12a8 8 0 1016 0 8 8 0 10-16 0z" stroke="white" stroke-width="2"/>
+                <path d="M12 8v5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 16h.01" stroke="white" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Support</h3>
+          </div>
+          <p>Get help with account safety, moderation tools, and common safety questions.</p>
+          <a class="btn" href="#">
+            Get Help
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </article>
+      </div>
+
+      <div class="divider"></div>
+    </section>
   </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 Safety Centre • Built with a pink-and-black Discord-inspired theme.</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
