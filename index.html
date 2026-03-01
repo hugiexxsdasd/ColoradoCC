@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Poppins for headline (lighter), Inter for manifesto-style body -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Poppins for titles, Inter for manifesto paragraph -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -19,16 +19,23 @@
   --white:#ffffff;
 
   --text:rgba(255,255,255,.92);
-  --muted:rgba(255,255,255,.68);
+
+  /* manifesto paragraph tone */
+  --muted:rgba(255,255,255,.66);
+  --muted2:rgba(255,255,255,.78);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
+
+/* lotus cursor (always) */
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
+
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 64 64'><path fill='%23f990a6' d='M32 8c3 4 5 8 5 12-3-2-5-4-6-7-1 3-3 5-6 7 0-4 2-8 7-12-10 4-16 12-16 22 0 12 10 22 22 22s22-10 22-22c0-10-6-18-16-22 5 4 7 8 7 12-3-2-5-4-6-7-1 3-3 5-6 7 0-4 2-8 5-12z'/></svg>") 12 12, auto;
 }
 
 /* =========================
@@ -50,7 +57,6 @@ body{
   transform:translateX(-50%);
   background:radial-gradient(circle at 50% 40%, rgba(249,144,166,.26), rgba(249,144,166,0) 72%);
   filter:blur(70px);
-  opacity:1;
 }
 
 .surge{
@@ -100,7 +106,6 @@ body{
   100% { transform:translateX(-50%) translateY(0) scale(1); }
 }
 
-/* depth */
 .vignette{
   position:absolute;
   inset:-1px;
@@ -108,7 +113,6 @@ body{
   pointer-events:none;
 }
 
-/* scanlines */
 .scan{
   position:absolute;
   inset:0;
@@ -123,21 +127,8 @@ body{
 }
 
 /* =========================
-   TOP BAR (logo left, sections centered)
+   LOGO
    ========================= */
-.topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  padding:22px 28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:10;
-  pointer-events:none;
-}
-
 .logo{
   position:fixed;
   top:22px;
@@ -151,99 +142,137 @@ body{
   align-items:center;
   justify-content:center;
   box-shadow:0 20px 50px rgba(0,0,0,.45);
-  z-index:11;
+  z-index:20;
 }
 .logo img{ width:86%; height:auto; display:block; }
+
+/* =========================
+   NAV (center top)
+   ========================= */
+.topbar{
+  position:fixed;
+  top:18px;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:center;
+  z-index:19;
+  pointer-events:none;
+}
 
 .nav{
   pointer-events:auto;
   display:flex;
-  gap:26px;
   align-items:center;
-  justify-content:center;
-  padding:10px 16px;
+  gap:20px;
+  padding:10px 14px;
   border-radius:999px;
-  background:rgba(0,0,0,.28);
+  background:rgba(0,0,0,.25);
   border:1px solid rgba(255,255,255,.08);
   backdrop-filter: blur(10px);
 }
 
-.nav-item{
+.nav-group{
   position:relative;
+  display:flex;
+  align-items:center;
+}
+
+/* clickable top labels */
+.nav-btn{
+  appearance:none;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+
   font-family:"Inter", system-ui, sans-serif;
-  font-weight:500;
+  font-weight:600;
   font-size:14px;
   letter-spacing:0.2px;
-  color:rgba(255,255,255,.78);
-  cursor:pointer;
-  user-select:none;
+
+  color:rgba(255,255,255,.86);
+
+  padding:10px 12px;
+  border-radius:999px;
+
   display:flex;
   align-items:center;
   gap:8px;
-  padding:10px 12px;
-  border-radius:999px;
-  transition:.18s ease;
+
+  transition: .18s ease;
 }
 
-.nav-item .label{
-  color:rgba(255,255,255,.78);
-}
-
-.nav-item.support .label{
-  color:var(--pink);
-}
-
-.nav-item:hover{
-  background:rgba(255,255,255,.05);
-}
-
-.chev{
+.nav-btn .chev{
   font-size:12px;
   opacity:.85;
   transform:translateY(-1px);
 }
 
-/* dropdown panels */
+/* default white; hover -> pink glow */
+.nav-group:hover .nav-btn{
+  color:var(--pink);
+  background:rgba(255,255,255,.05);
+  box-shadow:0 0 0 1px rgba(249,144,166,.22) inset, 0 0 22px rgba(249,144,166,.14);
+}
+
+/* dropdown stays open while hovering group */
 .dropdown{
   position:absolute;
-  top:44px;
+  top:46px;
   left:50%;
   transform:translateX(-50%);
-  min-width:220px;
-  background:rgba(15,15,15,.92);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:16px;
+  min-width:240px;
+
   padding:10px;
-  box-shadow:0 24px 70px rgba(0,0,0,.55);
+  border-radius:18px;
+
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 26px 80px rgba(0,0,0,.60);
+
+  background:rgba(12,12,12,.78);
+
+  /* blur “just a bit” on dropdown */
+  backdrop-filter: blur(10px);
+
   display:none;
 }
 
-.nav-item:hover .dropdown{
+.nav-group:hover .dropdown{
   display:block;
 }
 
 .dd-title{
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:700;
   font-size:12px;
-  font-weight:600;
-  color:rgba(255,255,255,.55);
-  padding:8px 10px 6px;
   letter-spacing:0.12em;
   text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  padding:8px 10px 6px;
 }
 
+/* subsections: white -> pink on hover */
 .dd-link{
-  display:block;
-  padding:10px 10px;
-  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:600;
+  font-size:15px;
+
+  padding:10px 12px;
+  border-radius:14px;
+
   color:rgba(255,255,255,.86);
   text-decoration:none;
-  font-weight:500;
+
   transition:.18s ease;
 }
 
 .dd-link:hover{
   background:rgba(249,144,166,.14);
-  color:white;
+  color:var(--pink);
 }
 
 /* =========================
@@ -254,40 +283,33 @@ body{
   padding:150px 64px 90px;
   text-align:center;
 }
+
 @media(max-width:760px){
-  .topbar{ padding:18px 14px; }
-  .logo{ left:14px; }
   .container{ padding:140px 24px 70px; }
+  .logo{ left:14px; }
   .nav{ gap:10px; }
-  .nav-item{ font-size:13px; padding:9px 10px; }
+  .nav-btn{ font-size:13px; padding:9px 10px; }
+  .dropdown{ min-width:210px; }
 }
 
-/* =========================
-   HEADLINE (less bold + pink outline hint)
-   ========================= */
+/* headline: less bold, subtle pink outline hint */
 .welcome{
   margin:0;
   font-family:"Poppins", system-ui, sans-serif;
-
-  /* less bold like you asked */
   font-weight:500;
-
   font-size:clamp(74px, 9.2vw, 205px);
   letter-spacing:.16em;
   text-transform:uppercase;
   line-height:.86;
-
   color:var(--white);
 
-  /* subtle pink outline hint + crisp glow (not blurred) */
+  /* pink hint outline + crisp glow */
   text-shadow:
-    -1px 0 rgba(249,144,166,.20),
-     1px 0 rgba(249,144,166,.20),
+    -1px 0 rgba(249,144,166,.22),
+     1px 0 rgba(249,144,166,.22),
      0 -1px rgba(249,144,166,.18),
      0  1px rgba(249,144,166,.18),
-     0  1px 0 rgba(0,0,0,.25),
-     0  0 10px rgba(249,144,166,.18),
-     0  0 22px rgba(249,144,166,.12);
+     0  0 12px rgba(249,144,166,.16);
 }
 
 .lotus{
@@ -299,13 +321,10 @@ body{
   text-transform:uppercase;
   line-height:1;
   color:rgba(255,255,255,.92);
-
   text-shadow:
     -1px 0 rgba(249,144,166,.14),
      1px 0 rgba(249,144,166,.14),
-     0 -1px rgba(249,144,166,.12),
-     0  1px rgba(249,144,166,.12),
-     0  0 10px rgba(249,144,166,.12);
+     0  0 12px rgba(249,144,166,.10);
 }
 
 .underline{
@@ -314,25 +333,38 @@ body{
   border-radius:999px;
   margin:22px auto 0;
   background:linear-gradient(90deg, rgba(249,144,166,0), rgba(249,144,166,.95), rgba(249,144,166,0));
-  filter:drop-shadow(0 0 10px rgba(249,144,166,.22));
+  filter:drop-shadow(0 0 10px rgba(249,144,166,.20));
   opacity:.95;
 }
 
-/* manifesto-style body text (exact settings) */
+/* ✅ THIS is the manifesto paragraph look (matches screenshot vibe) */
 .text{
   margin-top:44px;
-  max-width:880px;
+  max-width:1040px;
   margin-left:auto;
   margin-right:auto;
+
   font-family:"Inter", system-ui, sans-serif;
-  font-weight:300;
-  font-size:17.5px;
-  line-height:1.95;
-  letter-spacing:0.15px;
-  color:rgba(255,255,255,.68);
-  text-align:center;
+  font-weight:400;            /* THIS was the mismatch */
+  font-size:18px;
+  line-height:1.85;
+  letter-spacing:0px;         /* manifesto look is not “tracked” */
+  color:rgba(255,255,255,.66);
+
+  text-align:left;            /* manifesto paragraph reads like that */
 }
-.text p{ margin:0 0 26px; }
+
+.text p{ margin:0 0 22px; }
+
+/* optional small “manifesto header” style if you want later */
+.kicker{
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:22px;
+  color:rgba(255,255,255,.92);
+}
 
 .line{
   margin-top:26px;
@@ -341,7 +373,7 @@ body{
   opacity:.9;
 }
 
-/* fade-in */
+/* fade */
 .fade{
   opacity:0;
   transform:translateY(14px);
@@ -352,17 +384,10 @@ body{
 .d3{ animation-delay: 260ms; }
 @keyframes in{ to{ opacity:1; transform:translateY(0); } }
 
-/* lotus cursor while scrolling */
-body.scrolling{
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 64 64'><path fill='%23f990a6' d='M32 10c6 6 9 12 9 18-5-1-10-5-12-9-2 4-7 8-12 9 0-6 3-12 9-18-9 3-16 11-16 21 0 12 10 22 22 22s22-10 22-22c0-10-7-18-16-21z'/></svg>") 12 12, auto;
-}
-
-/* reduce motion */
 @media (prefers-reduced-motion: reduce){
   .surge, .surge.two, .surge.three{ animation:none; }
   .fade{ animation:none; opacity:1; transform:none; }
 }
-
 </style>
 </head>
 
@@ -370,35 +395,33 @@ body.scrolling{
 
 <div class="bg">
   <div class="baseGlow"></div>
-
   <div class="surge s1"></div>
   <div class="surge two s2"></div>
   <div class="surge three s3"></div>
-
   <div class="vignette"></div>
   <div class="scan"></div>
 </div>
 
-<!-- Logo file is next to index.html -->
 <div class="logo">
   <img src="LCP (1).webp" alt="Lotus Customs Logo">
 </div>
 
-<!-- Center-top sections -->
+<!-- Top center nav -->
 <div class="topbar">
   <div class="nav">
-    <div class="nav-item support">
-      <span class="label">Support</span> <span class="chev">⌄</span>
+    <div class="nav-group">
+      <button class="nav-btn" type="button">Support <span class="chev">⌄</span></button>
       <div class="dropdown">
         <div class="dd-title">Support</div>
+        <!-- keeping EXACT text you used earlier -->
         <a class="dd-link" href="#">Help Centre</a>
         <a class="dd-link" href="#">Feedback</a>
         <a class="dd-link" href="#">Submit a Request</a>
       </div>
     </div>
 
-    <div class="nav-item">
-      <span class="label">Guidelines</span> <span class="chev">⌄</span>
+    <div class="nav-group">
+      <button class="nav-btn" type="button">Guidelines <span class="chev">⌄</span></button>
       <div class="dropdown">
         <div class="dd-title">Guidelines</div>
         <a class="dd-link" href="#">Our Guidelines</a>
@@ -407,8 +430,8 @@ body.scrolling{
       </div>
     </div>
 
-    <div class="nav-item">
-      <span class="label">Review</span> <span class="chev">⌄</span>
+    <div class="nav-group">
+      <button class="nav-btn" type="button">Review <span class="chev">⌄</span></button>
       <div class="dropdown">
         <div class="dd-title">Review</div>
         <a class="dd-link" href="#">Leave a Review</a>
@@ -443,18 +466,6 @@ body.scrolling{
     <div class="line"></div>
   </div>
 </main>
-
-<script>
-  // Add lotus cursor only while actively scrolling
-  let scrollTimer = null;
-  window.addEventListener("scroll", () => {
-    document.body.classList.add("scrolling");
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-      document.body.classList.remove("scrolling");
-    }, 140);
-  });
-</script>
 
 </body>
 </html>
