@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Colorado Roleplay</title>
+  <title>Lotus Customs</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Keeping Poppins for title/nav if you want later, but we’ll use the manifesto-style font everywhere (Inter 300) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -15,23 +17,27 @@
       --pink:#f990a6;
       --rose:#d85b86;
       --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
+      --muted:rgba(255,255,255,.70);
       --muted2:rgba(255,255,255,.58);
-      --card:rgba(255,255,255,.03);
-      --line:rgba(255,255,255,.08);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* ✅ “Manifesto paragraph” font vibe for EVERYTHING */
     body{
       margin:0;
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:var(--bg);
       color:var(--text);
       overflow-x:hidden;
+
+      font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-weight:300;
+      letter-spacing:0.2px;
+      line-height:1.8;
     }
 
-    /* subtle animated background glows */
+    /* Background (keep exactly this vibe) */
     .bg{
       position:fixed; inset:0;
       pointer-events:none;
@@ -55,6 +61,7 @@
       background:radial-gradient(circle, rgba(249,144,166,.18), rgba(249,144,166,0) 70%);
       filter:blur(40px);
       animation: drift2 12s ease-in-out infinite;
+      opacity:.9;
     }
     .glow3{
       position:absolute;
@@ -63,115 +70,63 @@
       background:radial-gradient(circle, rgba(249,144,166,.14), rgba(249,144,166,0) 70%);
       filter:blur(40px);
       animation: drift2 14s ease-in-out infinite;
+      opacity:.9;
     }
+
     .scanlines{
       position:absolute; inset:0;
       opacity:.10;
       mix-blend-mode:soft-light;
-      background:repeating-linear-gradient(180deg, rgba(255,255,255,.10) 0px, rgba(255,255,255,.10) 1px, transparent 2px, transparent 8px);
+      background:repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,.10) 0px,
+        rgba(255,255,255,.10) 1px,
+        transparent 2px,
+        transparent 8px
+      );
     }
-    @keyframes drift{ 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(18px)} }
-    @keyframes drift2{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(14px)} }
 
-    /* nav */
-    header{
-      position:sticky; top:0; z-index:50;
-      background:rgba(10,10,10,.72);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.06);
+    @keyframes drift{
+      0%,100%{transform:translateX(-50%) translateY(0)}
+      50%{transform:translateX(-50%) translateY(18px)}
     }
-    .nav{
+    @keyframes drift2{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(14px)}
+    }
+
+    /* Layout */
+    .wrap{
       max-width:1100px;
       margin:0 auto;
-      padding:16px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      text-decoration:none; color:var(--text);
-      font-weight:700;
-      letter-spacing:.3px;
-      white-space:nowrap;
-    }
-    .badge{
-      width:36px; height:36px;
-      border-radius:12px;
-      display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.05);
-      color:var(--pink);
-      font-weight:800;
-      box-shadow:0 18px 45px rgba(0,0,0,.35);
+      padding:70px 18px 90px;
     }
 
-    nav{
-      display:flex; align-items:center; gap:26px;
-    }
-    nav a{
-      color:rgba(255,255,255,.72);
-      text-decoration:none;
-      font-weight:600;
-      font-size:14px;
-      position:relative;
-      padding:10px 0;
-    }
-    nav a:hover{ color:#fff; }
-    nav a::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:6px;
-      height:2px; border-radius:999px;
-      background:var(--pink);
-      transform:scaleX(0);
-      transition:.18s ease;
-      opacity:.95;
-      filter:drop-shadow(0 0 10px rgba(249,144,166,.55));
-    }
-    nav a:hover::after{ transform:scaleX(1); }
-
-    .cta{
-      text-decoration:none;
-      background:linear-gradient(180deg, var(--pink), var(--rose));
-      color:#000;
-      font-weight:800;
-      font-size:13px;
-      padding:12px 16px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 18px 45px rgba(0,0,0,.45), 0 0 28px rgba(249,144,166,.16);
-      white-space:nowrap;
-      transition:.18s ease;
-    }
-    .cta:hover{ transform:translateY(-1px); }
-
-    /* layout */
-    .wrap{ max-width:1100px; margin:0 auto; padding:56px 18px 0; }
-
-    /* hero */
+    /* Hero */
     .hero{
-      min-height:calc(100vh - 72px);
+      min-height:calc(100vh - 70px);
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:34px 0 60px;
+      padding:20px 0 40px;
     }
-    .hero-grid{
+
+    .grid{
       width:100%;
       display:grid;
-      grid-template-columns: 1fr 1.35fr 1fr;
+      grid-template-columns: 1fr 1.45fr 1fr;
       gap:28px;
       align-items:center;
     }
 
+    /* Title — keep thinner but still massive */
     .title{
       grid-column:1 / -1;
-      text-align:center;
       margin:0 0 18px;
-      font-size:clamp(50px, 6.5vw, 104px);
-      font-weight:500; /* thinner poppins */
-      letter-spacing:.10em;
+      text-align:center;
+      font-size:clamp(48px, 6.2vw, 106px);
+      font-weight:600;
+      letter-spacing:0.14em;
       text-transform:uppercase;
       line-height:.95;
 
@@ -180,7 +135,7 @@
       background-clip:text;
       color:transparent;
 
-      text-shadow:0 0 60px rgba(249,144,166,.20);
+      text-shadow:0 0 70px rgba(249,144,166,.20);
       opacity:0;
       transform:translateY(18px);
       animation: in 900ms cubic-bezier(.16,1,.3,1) forwards;
@@ -190,6 +145,7 @@
       to{ opacity:1; transform:translateY(0); }
     }
 
+    /* Logo */
     .logo-card{
       width:min(280px, 100%);
       aspect-ratio:1/1;
@@ -200,6 +156,7 @@
       background:rgba(255,255,255,.02);
       border:1px solid rgba(255,255,255,.08);
       box-shadow:0 28px 70px rgba(0,0,0,.6);
+
       opacity:0;
       transform:translateY(18px);
       animation: in 900ms cubic-bezier(.16,1,.3,1) 120ms forwards;
@@ -212,32 +169,54 @@
       display:block;
     }
 
+    /* fallback box if image fails */
+    .logo-fallback{
+      width:86%;
+      height:86%;
+      border-radius:18px;
+      display:none;
+      place-items:center;
+      color:rgba(255,255,255,.75);
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.35);
+      text-align:center;
+      padding:18px;
+      font-weight:400;
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    /* Body text */
     .intro{
       margin:0;
-      color:rgba(255,255,255,.74);
+      color:rgba(255,255,255,.70);
       font-size:clamp(15px, 1.15vw, 17px);
       line-height:1.9;
-      text-align:center;
+      text-align:left;
+
       opacity:0;
       transform:translateY(18px);
       animation: in 900ms cubic-bezier(.16,1,.3,1) 220ms forwards;
     }
 
-    /* orb */
+    /* Orb */
     .orb{
       width:min(250px, 100%);
       aspect-ratio:1/1;
       border-radius:999px;
       margin:0 auto;
+
       background:
         radial-gradient(55% 45% at 30% 24%, rgba(255,255,255,.82), transparent 55%),
         radial-gradient(70% 70% at 70% 70%, rgba(0,0,0,.28), transparent 55%),
         radial-gradient(circle at 45% 55%, rgba(255,255,255,.12), transparent 55%),
         linear-gradient(180deg, var(--pink), var(--rose));
+
       border:1px solid rgba(255,255,255,.14);
       box-shadow:0 30px 80px rgba(0,0,0,.65), 0 0 60px rgba(249,144,166,.12);
       position:relative;
       overflow:hidden;
+
       opacity:0;
       transform:translateY(18px);
       animation: in 900ms cubic-bezier(.16,1,.3,1) 320ms forwards, float 6s ease-in-out 1.2s infinite;
@@ -263,148 +242,25 @@
       opacity:.55;
       transform:rotate(-14deg);
     }
-    @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-
-    /* buttons */
-    .btns{
-      grid-column:1 / -1;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      margin-top:18px;
-      opacity:0;
-      transform:translateY(18px);
-      animation: in 900ms cubic-bezier(.16,1,.3,1) 420ms forwards;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 18px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:13px;
-      text-decoration:none;
-      border:1px solid rgba(255,255,255,.14);
-      transition:.18s ease;
-      cursor:pointer;
-      user-select:none;
-    }
-    .btn.primary{
-      background:linear-gradient(180deg, var(--pink), var(--rose));
-      color:#000;
-      box-shadow:0 18px 45px rgba(0,0,0,.45), 0 0 28px rgba(249,144,166,.16);
-    }
-    .btn.primary:hover{ transform:translateY(-1px); }
-    .btn.secondary{
-      background:rgba(255,255,255,.05);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.12);
-    }
-    .btn.secondary:hover{ background:rgba(255,255,255,.10); transform:translateY(-1px); }
-
-    /* guidelines section */
-    .section{
-      padding:34px 0 0;
-    }
-    .section h2{
-      margin:0 0 10px;
-      font-size:clamp(28px, 2.6vw, 44px);
-      font-weight:800;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      display:inline-block;
-      position:relative;
-      padding-bottom:12px;
-    }
-    .section h2::after{
-      content:"";
-      position:absolute;
-      left:0; bottom:0;
-      width:88%;
-      height:3px;
-      border-radius:999px;
-      background:var(--pink);
-      filter:drop-shadow(0 0 10px rgba(249,144,166,.45));
-      opacity:.95;
-    }
-    .section p{
-      margin:0 0 16px;
-      max-width:980px;
-      color:rgba(255,255,255,.62);
-      line-height:1.95;
-      font-weight:300;
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-12px)}
     }
 
+    /* subtle divider line like your manifesto screenshot */
     .line{
+      grid-column: 1 / -1;
       height:1px;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
-      margin:26px 0;
+      margin-top:16px;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      opacity:.9;
     }
 
-    /* cards */
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:16px;
-      padding:10px 0 50px;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      padding:18px;
-      box-shadow:0 24px 60px rgba(0,0,0,.45);
-    }
-    .card h3{ margin:0 0 8px; font-size:15px; font-weight:800; }
-    .card p{ margin:0 0 14px; color:rgba(255,255,255,.58); font-size:13px; line-height:1.75; }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(249,144,166,.55);
-      background:rgba(0,0,0,.45);
-      color:#fff;
-      text-decoration:none;
-      font-weight:800;
-      font-size:12px;
-      transition:.18s ease;
-    }
-    .pill:hover{ background:var(--pink); color:#000; transform:translateY(-1px); }
-
-    footer{
-      border-top:1px solid rgba(255,255,255,.06);
-      padding:28px 18px;
-      color:rgba(255,255,255,.58);
-      background:var(--bg);
-    }
-    .footer-inner{
-      max-width:1100px;
-      margin:0 auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .footer-links{ display:flex; gap:18px; }
-    .footer-links a{
-      color:rgba(255,255,255,.65);
-      text-decoration:none;
-      font-weight:600;
-    }
-    .footer-links a:hover{ color:var(--pink); }
-
-    /* responsive */
+    /* Mobile */
     @media(max-width: 980px){
-      nav{ display:none; }
-      .hero-grid{ grid-template-columns:1fr; }
-      .cards{ grid-template-columns:1fr; }
+      .grid{ grid-template-columns:1fr; }
+      .title{ text-align:left; letter-spacing:.12em; }
       .intro{ text-align:left; }
-      .title{ text-align:left; letter-spacing:.08em; }
-      .btns{ justify-content:flex-start; }
     }
   </style>
 </head>
@@ -417,431 +273,50 @@
     <div class="scanlines"></div>
   </div>
 
-  <header>
-    <div class="nav">
-      <a class="brand" href="#home">
-        <div class="badge">CR</div>
-        Colorado Roleplay
-      </a>
-
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#manifesto">Manifesto</a>
-        <a href="#departments">Departments</a>
-        <a href="#shop">Shop</a>
-        <a href="guidelines.html">Guidelines</a>
-      </nav>
-
-      <a class="cta" href="https://discord.gg/eMRzBgM8" target="_blank" rel="noopener noreferrer">
-        Open Discord
-      </a>
-    </div>
-  </header>
-
-  <main class="wrap" id="home">
+  <main class="wrap">
     <section class="hero">
       <div style="width:100%;">
-        <h1 class="title">COLORADO ROLEPLAY</h1>
+        <h1 class="title">WELCOME — LOTUS CUSTOMS</h1>
 
-        <div class="hero-grid">
+        <div class="grid">
+          <!-- LOGO -->
           <div class="logo-card">
-            <!-- Put your image at assets/LCP.webp -->
-            <img src="assets/LCP.webp" alt="Colorado Roleplay Logo" />
+            <!-- ✅ Use this path. Put the file at: assets/LCP.webp -->
+            <img id="siteLogo" src="assets/LCP.webp" alt="Lotus Customs Logo" />
+            <div class="logo-fallback" id="logoFallback">
+              Logo failed to load.<br><br>
+              Make sure it is in <b>/assets</b> and named exactly:<br>
+              <b>LCP.webp</b>
+            </div>
           </div>
 
+          <!-- TEXT -->
           <p class="intro">
-            Colorado Roleplay is built to bring people together through immersive storytelling,
-            shared scenes, and collaborative world-building. Every member uses the server differently —
-            some stick to tight-knit friend groups, others participate in large public RP spaces,
-            and many move fluidly between both.
+            Lotus Customs is a design-focused community built around creativity, clarity, and intentional work. It’s a place where designers, editors, and creators come together to share their skills, improve their craft, and collaborate in an environment that feels organized and purposeful. The server centers on visual design, branding, layout work, and the kind of clean, modern aesthetics that define the Lotus identity.
             <br><br>
-            Across Colorado Roleplay, we design our systems, rules, and staff practices with privacy
-            and transparency in mind. We want you to always understand how your information, your
-            characters, and your interactions are handled.
+            The community exists to give people a space where their design work can grow. Members can showcase their projects, get feedback, and learn from others who care about the same level of detail. Whether someone is new to design or already experienced, the environment is built to help them sharpen their style and develop a stronger creative voice.
+            <br><br>
+            Lotus Customs also serves as a hub for resources. Members can find tips, references, and examples that help them understand color theory, composition, typography, and other fundamentals. The goal is to make design feel accessible while still maintaining a high standard of quality.
+            <br><br>
+            A big part of Lotus is collaboration. People work together on ideas, help each other refine concepts, and share techniques that make everyone better. The community values constructive feedback, clear communication, and a supportive atmosphere where creativity can actually thrive.
           </p>
 
+          <!-- ORB -->
           <div class="orb" aria-hidden="true"></div>
 
-          <div class="btns">
-            <a class="btn primary" href="https://discord.gg/eMRzBgM8" target="_blank" rel="noopener noreferrer">
-              ▶ Join Now
-            </a>
-            <a class="btn secondary" href="#manifesto">
-              Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="manifesto">
-      <h2>MANIFESTO</h2>
-      <p>
-        Colorado Roleplay is built for players who love realistic scenarios, strong structure,
-        and an active community. Whether you’re here to patrol, dispatch, respond, or build storylines —
-        our systems are designed to keep gameplay smooth, fair, and fun.
-      </p>
-      <div class="line"></div>
-    </section>
-
-    <section class="section" id="departments">
-      <h2>DEPARTMENTS</h2>
-      <p>Join our elite departments and serve the state of Colorado.</p>
-
-      <div class="cards">
-        <div class="card">
-          <h3>El Paso County Sheriff's Office (EPCSO)</h3>
-          <p>Join the ranks and serve the Sheriff’s Office with realistic standards and active sessions.</p>
-          <a class="pill" href="#">Join EPCSO →</a>
-        </div>
-
-        <div class="card">
-          <h3>Denver Police Department (DPD)</h3>
-          <p>Patrol Denver with structured training, clean comms, and immersive scenarios.</p>
-          <a class="pill" href="#">Join DPD →</a>
-        </div>
-
-        <div class="card">
-          <h3>Colorado State Patrol (CSP)</h3>
-          <p>Highways, pursuits, and statewide operations — built for disciplined roleplay.</p>
-          <a class="pill" href="#">Join CSP →</a>
-        </div>
-      </div>
-
-      <div class="line"></div>
-    </section>
-
-    <section class="section" id="shop">
-      <h2>COLORADO'S SHOP</h2>
-      <p>Unlock exclusive perks and premium access.</p>
-
-      <div class="cards">
-        <div class="card">
-          <h3>Colorado Premium — $8.99</h3>
-          <p>Custom roles, gradients, exclusive vehicles, and premium access.</p>
-          <a class="pill" href="#">Buy Premium →</a>
-        </div>
-
-        <div class="card">
-          <h3>Colorado Elite — $4.99</h3>
-          <p>Custom gradients, roles, premium access, and discounts.</p>
-          <a class="pill" href="#">Buy Elite →</a>
-        </div>
-
-        <div class="card">
-          <h3>Guidelines</h3>
-          <p>Clear standards that keep the community safe, clean, and enjoyable.</p>
-          <a class="pill" href="guidelines.html">View Guidelines →</a>
+          <div class="line"></div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <div>© 2026 Colorado Roleplay. All Rights Reserved.</div>
-      <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
-      </div>
-    </div>
-  </footer>
-
   <script>
-    // smooth scroll for internal anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener("click", (e)=>{
-        const id = a.getAttribute("href");
-        const el = document.querySelector(id);
-        if(!el) return;
-        e.preventDefault();
-        el.scrollIntoView({behavior:"smooth"});
-      });
-    });
-  </script>
-</body>
-</html>
-
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Colorado Roleplay — Guidelines</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#0a0a0a;
-      --pink:#f990a6;
-      --rose:#d85b86;
-      --green:#32ff9a;
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      overflow-x:hidden;
-    }
-
-    .bg{
-      position:fixed; inset:0;
-      pointer-events:none;
-      z-index:-1;
-      overflow:hidden;
-    }
-    .glow{
-      position:absolute;
-      width:1000px; height:700px;
-      left:50%; top:-360px;
-      transform:translateX(-50%);
-      background:radial-gradient(circle, rgba(249,144,166,.22), rgba(249,144,166,0) 62%);
-      filter:blur(45px);
-      opacity:.9;
-    }
-    .scanlines{
-      position:absolute; inset:0;
-      opacity:.10;
-      mix-blend-mode:soft-light;
-      background:repeating-linear-gradient(180deg, rgba(255,255,255,.10) 0px, rgba(255,255,255,.10) 1px, transparent 2px, transparent 8px);
-    }
-
-    header{
-      position:sticky; top:0; z-index:50;
-      background:rgba(10,10,10,.72);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .nav{
-      max-width:1000px;
-      margin:0 auto;
-      padding:16px 18px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-    }
-    .back{
-      text-decoration:none;
-      color:rgba(255,255,255,.75);
-      font-weight:600;
-    }
-    .back:hover{ color:white; }
-
-    .wrap{
-      max-width:1000px;
-      margin:0 auto;
-      padding:60px 18px 80px;
-    }
-
-    .title{
-      margin:0 0 26px;
-      text-align:center;
-      font-size:clamp(52px, 6.5vw, 106px);
-      font-weight:500; /* thinner poppins */
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      line-height:.95;
-
-      background:linear-gradient(180deg, var(--pink), var(--rose));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      text-shadow:0 0 60px rgba(249,144,166,.20);
-    }
-
-    h2{
-      margin:0 0 12px;
-      font-size:clamp(28px, 2.6vw, 44px);
-      font-weight:800;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      display:inline-block;
-      position:relative;
-      padding-bottom:12px;
-    }
-    h2::after{
-      content:"";
-      position:absolute;
-      left:0; bottom:0;
-      width:88%;
-      height:3px;
-      border-radius:999px;
-      background:var(--pink);
-      filter:drop-shadow(0 0 10px rgba(249,144,166,.45));
-      opacity:.95;
-    }
-
-    .text{
-      margin:0 0 26px;
-      color:rgba(255,255,255,.62);
-      line-height:1.95;
-      font-weight:300;
-      max-width:900px;
-    }
-
-    /* green dropdown rows */
-    .rule{
-      margin-top:14px;
-      border-radius:16px;
-      overflow:hidden;
-      border:1px solid rgba(50,255,154,.30);
-      box-shadow:0 0 22px rgba(50,255,154,.10);
-      background:rgba(0,0,0,.25);
-    }
-    .rule-btn{
-      width:100%;
-      border:0;
-      cursor:pointer;
-      text-align:left;
-      padding:16px 18px;
-      font-family:inherit;
-      font-weight:700;
-      color:white;
-      background:rgba(50,255,154,.08);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .rule-btn:hover{ background:rgba(50,255,154,.13); }
-
-    .chev{
-      display:inline-block;
-      transition:.18s ease;
-      opacity:.9;
-      color:var(--green);
-      font-weight:900;
-    }
-    .open .chev{ transform:rotate(180deg); }
-
-    .content{
-      max-height:0;
-      overflow:hidden;
-      transition:max-height .25s ease;
-      border-top:1px solid rgba(50,255,154,.14);
-      background:rgba(0,0,0,.20);
-    }
-    .open .content{ max-height:420px; }
-
-    .content-inner{
-      padding:16px 18px;
-      color:rgba(255,255,255,.70);
-      line-height:1.85;
-      font-size:14px;
-      font-weight:300;
-    }
-
-    footer{
-      border-top:1px solid rgba(255,255,255,.06);
-      padding:28px 18px;
-      color:rgba(255,255,255,.58);
-      background:var(--bg);
-    }
-    .footer-inner{
-      max-width:1000px;
-      margin:0 auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="bg">
-    <div class="glow"></div>
-    <div class="scanlines"></div>
-  </div>
-
-  <header>
-    <div class="nav">
-      <a class="back" href="index.html">← Back to Home</a>
-      <a class="back" href="https://discord.gg/eMRzBgM8" target="_blank" rel="noopener noreferrer">Open Discord</a>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <h1 class="title">GUIDELINES</h1>
-
-    <h2>OUR GUIDELINES</h2>
-
-    <p class="text">
-      Welcome to Colorado Roleplay Guidelines.<br><br>
-      As stated in our Discord server, our guidelines are extremely important for the wellbeing of not only our team, but also our community members who support us.<br><br>
-      By joining our server, you agree to follow our guidelines and agree not to break them.<br><br>
-      Breaking our guidelines will result in consequences, which may include moderation action.<br><br>
-      Please be mindful of what you say and do, and always consider how your words and actions may affect the wellbeing of others.
-    </p>
-
-    <div class="rule open">
-      <button class="rule-btn" type="button">
-        Respect <span class="chev">⌄</span>
-      </button>
-      <div class="content">
-        <div class="content-inner">
-          Treat everyone with respect. No toxic behavior, insults, discrimination, or hostility. Keep disagreements calm, and keep feedback constructive.
-        </div>
-      </div>
-    </div>
-
-    <div class="rule">
-      <button class="rule-btn" type="button">
-        Not Safe For Work (NSFW) <span class="chev">⌄</span>
-      </button>
-      <div class="content">
-        <div class="content-inner">
-          NSFW content is strictly prohibited. This includes explicit images, sexual content, graphic media, or links to NSFW material.
-        </div>
-      </div>
-    </div>
-
-    <div class="rule">
-      <button class="rule-btn" type="button">
-        Raiding <span class="chev">⌄</span>
-      </button>
-      <div class="content">
-        <div class="content-inner">
-          Raiding is not allowed. Do not coordinate spam, attacks, harassment, or disruption against Colorado Roleplay or any other community.
-        </div>
-      </div>
-    </div>
-
-    <div class="rule">
-      <button class="rule-btn" type="button">
-        Harassment <span class="chev">⌄</span>
-      </button>
-      <div class="content">
-        <div class="content-inner">
-          Harassment, bullying, threats, hate, or stalking may result in immediate moderation action. Respect boundaries and stop when asked.
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div>© 2026 Colorado Roleplay. All Rights Reserved.</div>
-      <div style="opacity:.85;">Privacy • Terms • Contact</div>
-    </div>
-  </footer>
-
-  <script>
-    document.querySelectorAll(".rule").forEach(rule=>{
-      const btn = rule.querySelector(".rule-btn");
-      btn.addEventListener("click", ()=>{
-        rule.classList.toggle("open");
-      });
+    // ✅ If logo doesn't load, show a helpful fallback
+    const img = document.getElementById("siteLogo");
+    const fb = document.getElementById("logoFallback");
+    img.addEventListener("error", () => {
+      img.style.display = "none";
+      fb.style.display = "grid";
     });
   </script>
 </body>
