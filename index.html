@@ -19,29 +19,29 @@
   --muted:rgba(255,255,255,.70);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
   height:100%;
 }
 
 body{
+
   margin:0;
+
   background:var(--bg);
+
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto;
+
   color:var(--text);
 
-  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  font-weight:300;
-  letter-spacing:0.2px;
-  line-height:1.9;
+  display:flex;
+  justify-content:center;
 
-  overflow-x:hidden;
 }
 
 
-/* FULL WIDTH BACKGROUND */
+/* background */
 
 .bg{
   position:fixed;
@@ -50,18 +50,25 @@ body{
 }
 
 .glow{
+
   position:absolute;
+
   width:1400px;
-  height:1000px;
+  height:900px;
+
   left:50%;
-  top:-500px;
+  top:-400px;
+
   transform:translateX(-50%);
 
-  background:radial-gradient(circle, rgba(249,144,166,.28), transparent 65%);
+  background:radial-gradient(circle, rgba(249,144,166,.28), transparent 70%);
+
   filter:blur(60px);
+
 }
 
 .scan{
+
   position:absolute;
   inset:0;
 
@@ -74,13 +81,16 @@ body{
     transparent 2px,
     transparent 8px
   );
+
 }
 
 
-/* LOGO TOP LEFT */
+/* logo */
 
 .logo{
+
   position:fixed;
+
   top:28px;
   left:28px;
 
@@ -97,7 +107,6 @@ body{
   align-items:center;
   justify-content:center;
 
-  box-shadow:0 20px 50px rgba(0,0,0,.4);
 }
 
 .logo img{
@@ -105,96 +114,92 @@ body{
 }
 
 
-/* FULL WIDTH HERO */
+/* main container centered */
 
-.hero{
+.container{
 
-  width:100vw;
+  width:100%;
 
-  padding-top:140px;
-  padding-left:5vw;
-  padding-right:5vw;
-  padding-bottom:80px;
+  max-width:1400px;
+
+  padding:120px 60px 80px;
+
+  text-align:center;
 
 }
 
 
-/* PERFECTLY SCALING TITLE */
+/* titles centered */
 
 .welcome{
 
-  margin:0;
-
-  font-size:clamp(64px, 9vw, 180px);
+  font-size:clamp(60px,8vw,160px);
 
   font-weight:600;
 
   letter-spacing:.18em;
 
-  line-height:.85;
-
-  text-transform:uppercase;
+  margin:0;
 
   background:linear-gradient(180deg,var(--pink),var(--rose));
-
   -webkit-background-clip:text;
-  background-clip:text;
   color:transparent;
 
 }
 
 .lotus{
 
-  margin-top:10px;
-
-  font-size:clamp(28px, 3.5vw, 64px);
+  font-size:clamp(24px,3vw,60px);
 
   letter-spacing:.22em;
 
-  font-weight:500;
+  margin-top:10px;
 
   color:rgba(255,255,255,.85);
 
 }
 
 
-/* FULL WIDTH TEXT */
+/* paragraph text FULL WIDTH but centered */
 
 .text{
 
   margin-top:50px;
 
-  font-size:clamp(16px, 1.3vw, 20px);
+  font-size:clamp(16px,1.2vw,20px);
+
+  line-height:1.9;
 
   color:var(--muted);
 
-  column-count:2;
+  max-width:1100px;
 
-  column-gap:80px;
+  margin-left:auto;
+  margin-right:auto;
 
-  max-width:none;
+  text-align:center;
+
+}
+
+.text p{
+
+  margin-bottom:28px;
 
 }
 
 
-/* MOBILE */
+/* mobile */
 
-@media(max-width:900px){
+@media(max-width:700px){
 
-  .hero{
-    padding-left:6vw;
-    padding-right:6vw;
-  }
-
-  .text{
-    column-count:1;
+  .container{
+    padding:100px 25px 60px;
   }
 
 }
 
 </style>
 </head>
-
 <body>
 
 <div class="bg">
@@ -202,15 +207,12 @@ body{
   <div class="scan"></div>
 </div>
 
-
-<!-- LOGO -->
 <div class="logo">
   <img src="LCP (1).webp">
 </div>
 
 
-<!-- FULL WIDTH CONTENT -->
-<section class="hero">
+<div class="container">
 
 <h1 class="welcome">WELCOME</h1>
 
@@ -237,8 +239,7 @@ A big part of Lotus is collaboration. People work together on ideas, help each o
 
 </div>
 
-</section>
-
+</div>
 
 </body>
 </html>
