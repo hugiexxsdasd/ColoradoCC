@@ -7,14 +7,15 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Poppins for the big title (lighter), Inter for the manifesto-style body -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#0a0a0a;
   --pink:#f990a6;
   --rose:#d85b86;
-
   --text:rgba(255,255,255,.92);
   --muted:rgba(255,255,255,.70);
 }
@@ -27,16 +28,9 @@ body{
   background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
-
-  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  font-weight:300;
-  letter-spacing:0.2px;
-  line-height:1.9;
 }
 
-/* =========================
-   BACKGROUND (brighter glow)
-   ========================= */
+/* ---------- Background (same vibe, a bit brighter) ---------- */
 .bg{
   position:fixed;
   inset:0;
@@ -51,7 +45,7 @@ body{
   left:50%;
   top:-520px;
   transform:translateX(-50%);
-  background:radial-gradient(circle at 50% 40%, rgba(249,144,166,.42), rgba(249,144,166,0) 70%);
+  background:radial-gradient(circle at 50% 40%, rgba(249,144,166,.34), rgba(249,144,166,0) 70%);
   filter:blur(70px);
   opacity:1;
 }
@@ -62,7 +56,7 @@ body{
   height:700px;
   left:-320px;
   top:120px;
-  background:radial-gradient(circle, rgba(249,144,166,.26), rgba(249,144,166,0) 72%);
+  background:radial-gradient(circle, rgba(249,144,166,.22), rgba(249,144,166,0) 72%);
   filter:blur(60px);
   opacity:1;
 }
@@ -73,20 +67,20 @@ body{
   height:720px;
   right:-340px;
   top:190px;
-  background:radial-gradient(circle, rgba(249,144,166,.20), rgba(249,144,166,0) 72%);
+  background:radial-gradient(circle, rgba(249,144,166,.18), rgba(249,144,166,0) 72%);
   filter:blur(60px);
   opacity:1;
 }
 
-/* subtle vignette for depth */
+/* subtle dark vignette */
 .vignette{
   position:absolute;
   inset:-1px;
-  background:radial-gradient(1200px 800px at 50% 20%, transparent 35%, rgba(0,0,0,.65) 85%);
+  background:radial-gradient(1200px 800px at 50% 20%, transparent 35%, rgba(0,0,0,.62) 85%);
   pointer-events:none;
 }
 
-/* scanlines like your screenshot */
+/* scanlines */
 .scan{
   position:absolute;
   inset:0;
@@ -100,9 +94,7 @@ body{
   );
 }
 
-/* =========================
-   LOGO (top left)
-   ========================= */
+/* ---------- Logo (top left) ---------- */
 .logo{
   position:fixed;
   top:28px;
@@ -120,9 +112,7 @@ body{
 }
 .logo img{ width:86%; height:auto; display:block; }
 
-/* =========================
-   MAIN LAYOUT
-   ========================= */
+/* ---------- Layout (centered, full width feel) ---------- */
 .container{
   width:100%;
   padding:120px 64px 90px;
@@ -132,77 +122,72 @@ body{
   .container{ padding:110px 24px 70px; }
 }
 
-/* =========================
-   "MANIFESTO" heading style
-   ========================= */
+/* ---------- Title (Poppins, lighter) ---------- */
 .welcome{
   margin:0;
-
-  /* bigger, fills page more */
-  font-size:clamp(72px, 9.6vw, 200px);
-
-  font-weight:900;
-  letter-spacing:.16em;
+  font-family:"Poppins", system-ui, sans-serif;
+  font-weight:500; /* lighter than before */
+  font-size:clamp(72px, 9.2vw, 200px);
+  letter-spacing:.18em;
   text-transform:uppercase;
-  line-height:.85;
+  line-height:.86;
 
-  /* pink gradient like before */
   background:linear-gradient(180deg, var(--pink), var(--rose));
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 
-  /* glow for the title */
+  /* subtle crisp glow (NOT blurry) */
   text-shadow:
-    0 0 24px rgba(249,144,166,.30),
-    0 0 70px rgba(249,144,166,.22);
-
-  /* crisp look */
-  -webkit-font-smoothing:antialiased;
+    0 0 0.6px rgba(249,144,166,.55),
+    0 0 10px rgba(249,144,166,.18);
 }
 
+/* Lotus Customs line */
 .lotus{
   margin-top:14px;
-
-  font-size:clamp(30px, 3.8vw, 78px);
-
-  font-weight:800;
+  font-family:"Poppins", system-ui, sans-serif;
+  font-weight:500;
+  font-size:clamp(30px, 3.8vw, 76px);
   letter-spacing:.22em;
   text-transform:uppercase;
   line-height:1;
-
   color:rgba(255,255,255,.88);
 
-  text-shadow:0 0 35px rgba(249,144,166,.10);
+  text-shadow: 0 0 8px rgba(249,144,166,.10);
 }
 
-/* underline accent like your MANIFESTO line */
+/* underline accent like the screenshot */
 .underline{
   width:min(560px, 82vw);
   height:3px;
   border-radius:999px;
   margin:22px auto 0;
-  background:linear-gradient(90deg, rgba(249,144,166,.0), rgba(249,144,166,.95), rgba(249,144,166,.0));
-  filter:drop-shadow(0 0 14px rgba(249,144,166,.35));
+  background:linear-gradient(90deg, rgba(249,144,166,0), rgba(249,144,166,.95), rgba(249,144,166,0));
+  filter:drop-shadow(0 0 10px rgba(249,144,166,.22));
   opacity:.95;
 }
 
-/* body copy */
+/* ---------- EXACT manifesto-style body text ---------- */
 .text{
   margin-top:44px;
-  max-width:1100px;
+  max-width:880px;
   margin-left:auto;
   margin-right:auto;
 
-  font-size:clamp(16px, 1.22vw, 20px);
-  color:rgba(255,255,255,.72);
-  line-height:2.0;
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:300;          /* KEY */
+  font-size:17.5px;         /* KEY */
+  line-height:1.95;         /* KEY */
+  letter-spacing:0.15px;    /* KEY */
+  color:rgba(255,255,255,.68);
 
   text-align:center;
 }
+
 .text p{ margin:0 0 26px; }
 
-/* subtle bottom divider */
+/* divider */
 .line{
   margin-top:26px;
   height:1px;
@@ -210,7 +195,7 @@ body{
   opacity:.9;
 }
 
-/* small fade-in */
+/* fade-in */
 .fade{
   opacity:0;
   transform:translateY(14px);
@@ -236,6 +221,7 @@ body{
   <div class="scan"></div>
 </div>
 
+<!-- Logo file is in the same folder as index.html -->
 <div class="logo">
   <img src="LCP (1).webp" alt="Lotus Customs Logo">
 </div>
