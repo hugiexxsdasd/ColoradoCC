@@ -156,7 +156,7 @@ body{
   right:0;
   display:flex;
   justify-content:center;
-  z-index:19;
+  z-index:21;
   pointer-events:none;
 }
 
@@ -170,12 +170,30 @@ body{
   background:rgba(0,0,0,.25);
   border:1px solid rgba(255,255,255,.08);
   backdrop-filter: blur(10px);
+  position:relative;
+  z-index:22; /* stay above blur */
 }
 
 .nav-group{
   position:relative;
   display:flex;
   align-items:center;
+}
+
+/* ✅ hover-bridge so dropdown DOESN'T vanish when you move down */
+.nav-group::after{
+  content:"";
+  position:absolute;
+  left:-10px;
+  right:-10px;
+  top:40px;          /* area right under the button */
+  height:18px;       /* covers the “gap” */
+  background:transparent;
+  display:none;
+}
+.nav-group:hover::after,
+.nav-group:focus-within::after{
+  display:block;
 }
 
 /* clickable top labels */
@@ -209,7 +227,8 @@ body{
 }
 
 /* default white; hover -> pink glow */
-.nav-group:hover .nav-btn{
+.nav-group:hover .nav-btn,
+.nav-group:focus-within .nav-btn{
   color:var(--pink);
   background:rgba(255,255,255,.05);
   box-shadow:0 0 0 1px rgba(249,144,166,.22) inset, 0 0 22px rgba(249,144,166,.14);
@@ -237,7 +256,8 @@ body{
   display:none;
 }
 
-.nav-group:hover .dropdown{
+.nav-group:hover .dropdown,
+.nav-group:focus-within .dropdown{
   display:block;
 }
 
@@ -273,6 +293,28 @@ body{
 .dd-link:hover{
   background:rgba(249,144,166,.14);
   color:var(--pink);
+}
+
+/* =========================
+   BLUR REST OF SITE WHEN NAV IS ACTIVE
+   (nav + dropdown stay crisp)
+   ========================= */
+.site{
+  transition: filter .18s ease, opacity .18s ease;
+  will-change: filter;
+}
+
+/* blur/dim everything except nav + logo when hovering nav */
+body:has(.nav-group:hover) .site,
+body:has(.nav-group:focus-within) .site{
+  filter: blur(7px);
+  opacity:.78;
+}
+
+/* keep logo & nav above blur */
+.logo, .topbar{
+  filter:none !important;
+  opacity:1 !important;
 }
 
 /* =========================
@@ -345,18 +387,17 @@ body{
   margin-right:auto;
 
   font-family:"Inter", system-ui, sans-serif;
-  font-weight:400;            /* THIS was the mismatch */
+  font-weight:400;
   font-size:18px;
   line-height:1.85;
-  letter-spacing:0px;         /* manifesto look is not “tracked” */
+  letter-spacing:0px;
   color:rgba(255,255,255,.66);
 
-  text-align:left;            /* manifesto paragraph reads like that */
+  text-align:left;
 }
 
 .text p{ margin:0 0 22px; }
 
-/* optional small “manifesto header” style if you want later */
 .kicker{
   font-family:"Inter", system-ui, sans-serif;
   font-weight:800;
@@ -393,15 +434,6 @@ body{
 
 <body>
 
-<div class="bg">
-  <div class="baseGlow"></div>
-  <div class="surge s1"></div>
-  <div class="surge two s2"></div>
-  <div class="surge three s3"></div>
-  <div class="vignette"></div>
-  <div class="scan"></div>
-</div>
-
 <div class="logo">
   <img src="LCP (1).webp" alt="Lotus Customs Logo">
 </div>
@@ -413,7 +445,6 @@ body{
       <button class="nav-btn" type="button">Support <span class="chev">⌄</span></button>
       <div class="dropdown">
         <div class="dd-title">Support</div>
-        <!-- keeping EXACT text you used earlier -->
         <a class="dd-link" href="#">Help Centre</a>
         <a class="dd-link" href="#">Feedback</a>
         <a class="dd-link" href="#">Submit a Request</a>
@@ -441,31 +472,43 @@ body{
   </div>
 </div>
 
-<main class="container">
-  <h1 class="welcome fade d1">WELCOME</h1>
-  <div class="lotus fade d2">LOTUS CUSTOMS</div>
-  <div class="underline fade d2"></div>
-
-  <div class="text fade d3">
-    <p>
-      Lotus Customs is a design-focused community built around creativity, clarity, and intentional work. It’s a place where designers, editors, and creators come together to share their skills, improve their craft, and collaborate in an environment that feels organized and purposeful. The server centers on visual design, branding, layout work, and the kind of clean, modern aesthetics that define the Lotus identity.
-    </p>
-
-    <p>
-      The community exists to give people a space where their design work can grow. Members can showcase their projects, get feedback, and learn from others who care about the same level of detail. Whether someone is new to design or already experienced, the environment is built to help them sharpen their style and develop a stronger creative voice.
-    </p>
-
-    <p>
-      Lotus Customs also serves as a hub for resources. Members can find tips, references, and examples that help them understand color theory, composition, typography, and other fundamentals. The goal is to make design feel accessible while still maintaining a high standard of quality.
-    </p>
-
-    <p>
-      A big part of Lotus is collaboration. People work together on ideas, help each other refine concepts, and share techniques that make everyone better. The community values constructive feedback, clear communication, and a supportive atmosphere where creativity can actually thrive.
-    </p>
-
-    <div class="line"></div>
+<!-- ✅ Wrap the background + main as "site" so only THIS blurs -->
+<div class="site">
+  <div class="bg">
+    <div class="baseGlow"></div>
+    <div class="surge s1"></div>
+    <div class="surge two s2"></div>
+    <div class="surge three s3"></div>
+    <div class="vignette"></div>
+    <div class="scan"></div>
   </div>
-</main>
+
+  <main class="container">
+    <h1 class="welcome fade d1">WELCOME</h1>
+    <div class="lotus fade d2">LOTUS CUSTOMS</div>
+    <div class="underline fade d2"></div>
+
+    <div class="text fade d3">
+      <p>
+        Lotus Customs is a design-focused community built around creativity, clarity, and intentional work. It’s a place where designers, editors, and creators come together to share their skills, improve their craft, and collaborate in an environment that feels organized and purposeful. The server centers on visual design, branding, layout work, and the kind of clean, modern aesthetics that define the Lotus identity.
+      </p>
+
+      <p>
+        The community exists to give people a space where their design work can grow. Members can showcase their projects, get feedback, and learn from others who care about the same level of detail. Whether someone is new to design or already experienced, the environment is built to help them sharpen their style and develop a stronger creative voice.
+      </p>
+
+      <p>
+        Lotus Customs also serves as a hub for resources. Members can find tips, references, and examples that help them understand color theory, composition, typography, and other fundamentals. The goal is to make design feel accessible while still maintaining a high standard of quality.
+      </p>
+
+      <p>
+        A big part of Lotus is collaboration. People work together on ideas, help each other refine concepts, and share techniques that make everyone better. The community values constructive feedback, clear communication, and a supportive atmosphere where creativity can actually thrive.
+      </p>
+
+      <div class="line"></div>
+    </div>
+  </main>
+</div>
 
 </body>
 </html>
