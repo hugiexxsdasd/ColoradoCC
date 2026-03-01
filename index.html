@@ -8,21 +8,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Poppins for the big title (lighter), Inter for the manifesto-style body -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Poppins for headline, Inter for manifesto-style body -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#0a0a0a;
   --pink:#f990a6;
   --rose:#d85b86;
+  --white:#ffffff;
+
   --text:rgba(255,255,255,.92);
-  --muted:rgba(255,255,255,.70);
+  --muted:rgba(255,255,255,.68);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
-
 body{
   margin:0;
   background:var(--bg);
@@ -30,7 +31,9 @@ body{
   overflow-x:hidden;
 }
 
-/* ---------- Background (same vibe, a bit brighter) ---------- */
+/* =========================
+   BACKGROUND (animated surges)
+   ========================= */
 .bg{
   position:fixed;
   inset:0;
@@ -38,41 +41,72 @@ body{
   overflow:hidden;
 }
 
-.glowA{
+/* base glow */
+.baseGlow{
   position:absolute;
-  width:1500px;
-  height:950px;
+  width:1400px;
+  height:900px;
   left:50%;
-  top:-520px;
+  top:-480px;
   transform:translateX(-50%);
-  background:radial-gradient(circle at 50% 40%, rgba(249,144,166,.34), rgba(249,144,166,0) 70%);
+  background:radial-gradient(circle at 50% 40%, rgba(249,144,166,.26), rgba(249,144,166,0) 72%);
   filter:blur(70px);
   opacity:1;
 }
 
-.glowB{
-  position:absolute;
-  width:700px;
-  height:700px;
-  left:-320px;
-  top:120px;
-  background:radial-gradient(circle, rgba(249,144,166,.22), rgba(249,144,166,0) 72%);
-  filter:blur(60px);
-  opacity:1;
-}
-
-.glowC{
+/* SURGING BLOBS (move slowly, noticeable) */
+.surge{
   position:absolute;
   width:720px;
   height:720px;
-  right:-340px;
-  top:190px;
-  background:radial-gradient(circle, rgba(249,144,166,.18), rgba(249,144,166,0) 72%);
-  filter:blur(60px);
-  opacity:1;
+  border-radius:999px;
+  filter:blur(70px);
+  opacity:.95;
+  background:radial-gradient(circle at 40% 35%, rgba(249,144,166,.28), rgba(249,144,166,0) 70%);
+  animation: surgeMove 14s ease-in-out infinite;
 }
 
-/* subtle dark vignette */
+.surge.two{
+  width:820px;
+  height:820px;
+  opacity:.85;
+  background:radial-gradient(circle at 50% 45%, rgba(249,144,166,.22), rgba(249,144,166,0) 70%);
+  animation: surgeMove2 18s ease-in-out infinite;
+}
+
+.surge.three{
+  width:640px;
+  height:640px;
+  opacity:.75;
+  background:radial-gradient(circle at 45% 40%, rgba(249,144,166,.20), rgba(249,144,166,0) 70%);
+  animation: surgeMove3 16s ease-in-out infinite;
+}
+
+/* positions (they drift) */
+.s1{ left:-260px; top:180px; }
+.s2{ right:-320px; top:220px; }
+.s3{ left:45%; bottom:-360px; transform:translateX(-50%); }
+
+@keyframes surgeMove{
+  0%   { transform:translate(0,0) scale(1); }
+  35%  { transform:translate(90px,-40px) scale(1.12); }
+  70%  { transform:translate(40px,70px) scale(0.98); }
+  100% { transform:translate(0,0) scale(1); }
+}
+@keyframes surgeMove2{
+  0%   { transform:translate(0,0) scale(1); }
+  40%  { transform:translate(-120px,60px) scale(1.10); }
+  75%  { transform:translate(-40px,-80px) scale(0.98); }
+  100% { transform:translate(0,0) scale(1); }
+}
+@keyframes surgeMove3{
+  0%   { transform:translateX(-50%) translateY(0) scale(1); }
+  45%  { transform:translateX(-50%) translateY(-90px) scale(1.12); }
+  80%  { transform:translateX(-50%) translateY(40px) scale(0.98); }
+  100% { transform:translateX(-50%) translateY(0) scale(1); }
+}
+
+/* subtle vignette for depth */
 .vignette{
   position:absolute;
   inset:-1px;
@@ -94,7 +128,9 @@ body{
   );
 }
 
-/* ---------- Logo (top left) ---------- */
+/* =========================
+   LOGO (top-left)
+   ========================= */
 .logo{
   position:fixed;
   top:28px;
@@ -112,52 +148,59 @@ body{
 }
 .logo img{ width:86%; height:auto; display:block; }
 
-/* ---------- Layout (centered, full width feel) ---------- */
+/* =========================
+   LAYOUT
+   ========================= */
 .container{
   width:100%;
-  padding:120px 64px 90px;
+  padding:130px 64px 90px;
   text-align:center;
 }
 @media(max-width:760px){
-  .container{ padding:110px 24px 70px; }
+  .container{ padding:115px 24px 70px; }
 }
 
-/* ---------- Title (Poppins, lighter) ---------- */
+/* =========================
+   HEADLINE GLOW (like your example)
+   - White text with crisp pink glow
+   - Not blurry background, just text glow
+   ========================= */
 .welcome{
   margin:0;
   font-family:"Poppins", system-ui, sans-serif;
-  font-weight:500; /* lighter than before */
-  font-size:clamp(72px, 9.2vw, 200px);
-  letter-spacing:.18em;
+  font-weight:600; /* lighter than mega-bold */
+  font-size:clamp(76px, 9.4vw, 210px);
+  letter-spacing:.16em;
   text-transform:uppercase;
   line-height:.86;
+  color:var(--white);
 
-  background:linear-gradient(180deg, var(--pink), var(--rose));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-
-  /* subtle crisp glow (NOT blurry) */
+  /* crisp glow layers (tight + wider) */
   text-shadow:
-    0 0 0.6px rgba(249,144,166,.55),
-    0 0 10px rgba(249,144,166,.18);
+    0 1px 0 rgba(0,0,0,.20),
+    0 0 10px rgba(249,144,166,.26),
+    0 0 26px rgba(249,144,166,.20),
+    0 0 60px rgba(249,144,166,.12);
 }
 
-/* Lotus Customs line */
 .lotus{
   margin-top:14px;
   font-family:"Poppins", system-ui, sans-serif;
-  font-weight:500;
-  font-size:clamp(30px, 3.8vw, 76px);
+  font-weight:600;
+  font-size:clamp(32px, 3.9vw, 80px);
   letter-spacing:.22em;
   text-transform:uppercase;
   line-height:1;
-  color:rgba(255,255,255,.88);
 
-  text-shadow: 0 0 8px rgba(249,144,166,.10);
+  color:rgba(255,255,255,.92);
+
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.20),
+    0 0 10px rgba(249,144,166,.18),
+    0 0 26px rgba(249,144,166,.12);
 }
 
-/* underline accent like the screenshot */
+/* underline like your "MANIFESTO" line */
 .underline{
   width:min(560px, 82vw);
   height:3px;
@@ -168,7 +211,7 @@ body{
   opacity:.95;
 }
 
-/* ---------- EXACT manifesto-style body text ---------- */
+/* EXACT manifesto-style body */
 .text{
   margin-top:44px;
   max-width:880px;
@@ -176,10 +219,10 @@ body{
   margin-right:auto;
 
   font-family:"Inter", system-ui, sans-serif;
-  font-weight:300;          /* KEY */
-  font-size:17.5px;         /* KEY */
-  line-height:1.95;         /* KEY */
-  letter-spacing:0.15px;    /* KEY */
+  font-weight:300;
+  font-size:17.5px;
+  line-height:1.95;
+  letter-spacing:0.15px;
   color:rgba(255,255,255,.68);
 
   text-align:center;
@@ -195,7 +238,7 @@ body{
   opacity:.9;
 }
 
-/* fade-in */
+/* fade in */
 .fade{
   opacity:0;
   transform:translateY(14px);
@@ -204,9 +247,14 @@ body{
 .d1{ animation-delay: 80ms; }
 .d2{ animation-delay: 170ms; }
 .d3{ animation-delay: 260ms; }
-
 @keyframes in{
   to{ opacity:1; transform:translateY(0); }
+}
+
+/* accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .surge, .surge.two, .surge.three{ animation:none; }
+  .fade{ animation:none; opacity:1; transform:none; }
 }
 </style>
 </head>
@@ -214,14 +262,18 @@ body{
 <body>
 
 <div class="bg">
-  <div class="glowA"></div>
-  <div class="glowB"></div>
-  <div class="glowC"></div>
+  <div class="baseGlow"></div>
+
+  <!-- animated surges -->
+  <div class="surge s1"></div>
+  <div class="surge two s2"></div>
+  <div class="surge three s3"></div>
+
   <div class="vignette"></div>
   <div class="scan"></div>
 </div>
 
-<!-- Logo file is in the same folder as index.html -->
+<!-- logo file is next to index.html -->
 <div class="logo">
   <img src="LCP (1).webp" alt="Lotus Customs Logo">
 </div>
