@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Poppins for headline, Inter for manifesto-style body -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Poppins for headline (lighter), Inter for manifesto-style body -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -41,7 +41,6 @@ body{
   overflow:hidden;
 }
 
-/* base glow */
 .baseGlow{
   position:absolute;
   width:1400px;
@@ -54,7 +53,6 @@ body{
   opacity:1;
 }
 
-/* SURGING BLOBS (move slowly, noticeable) */
 .surge{
   position:absolute;
   width:720px;
@@ -65,7 +63,6 @@ body{
   background:radial-gradient(circle at 40% 35%, rgba(249,144,166,.28), rgba(249,144,166,0) 70%);
   animation: surgeMove 14s ease-in-out infinite;
 }
-
 .surge.two{
   width:820px;
   height:820px;
@@ -73,7 +70,6 @@ body{
   background:radial-gradient(circle at 50% 45%, rgba(249,144,166,.22), rgba(249,144,166,0) 70%);
   animation: surgeMove2 18s ease-in-out infinite;
 }
-
 .surge.three{
   width:640px;
   height:640px;
@@ -81,8 +77,6 @@ body{
   background:radial-gradient(circle at 45% 40%, rgba(249,144,166,.20), rgba(249,144,166,0) 70%);
   animation: surgeMove3 16s ease-in-out infinite;
 }
-
-/* positions (they drift) */
 .s1{ left:-260px; top:180px; }
 .s2{ right:-320px; top:220px; }
 .s3{ left:45%; bottom:-360px; transform:translateX(-50%); }
@@ -106,7 +100,7 @@ body{
   100% { transform:translateX(-50%) translateY(0) scale(1); }
 }
 
-/* subtle vignette for depth */
+/* depth */
 .vignette{
   position:absolute;
   inset:-1px;
@@ -129,11 +123,24 @@ body{
 }
 
 /* =========================
-   LOGO (top-left)
+   TOP BAR (logo left, sections centered)
    ========================= */
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  padding:22px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+  pointer-events:none;
+}
+
 .logo{
   position:fixed;
-  top:28px;
+  top:22px;
   left:28px;
   width:60px;
   height:60px;
@@ -144,63 +151,163 @@ body{
   align-items:center;
   justify-content:center;
   box-shadow:0 20px 50px rgba(0,0,0,.45);
-  z-index:5;
+  z-index:11;
 }
 .logo img{ width:86%; height:auto; display:block; }
 
-/* =========================
-   LAYOUT
-   ========================= */
-.container{
-  width:100%;
-  padding:130px 64px 90px;
-  text-align:center;
+.nav{
+  pointer-events:auto;
+  display:flex;
+  gap:26px;
+  align-items:center;
+  justify-content:center;
+  padding:10px 16px;
+  border-radius:999px;
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
 }
-@media(max-width:760px){
-  .container{ padding:115px 24px 70px; }
+
+.nav-item{
+  position:relative;
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:500;
+  font-size:14px;
+  letter-spacing:0.2px;
+  color:rgba(255,255,255,.78);
+  cursor:pointer;
+  user-select:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:999px;
+  transition:.18s ease;
+}
+
+.nav-item .label{
+  color:rgba(255,255,255,.78);
+}
+
+.nav-item.support .label{
+  color:var(--pink);
+}
+
+.nav-item:hover{
+  background:rgba(255,255,255,.05);
+}
+
+.chev{
+  font-size:12px;
+  opacity:.85;
+  transform:translateY(-1px);
+}
+
+/* dropdown panels */
+.dropdown{
+  position:absolute;
+  top:44px;
+  left:50%;
+  transform:translateX(-50%);
+  min-width:220px;
+  background:rgba(15,15,15,.92);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  padding:10px;
+  box-shadow:0 24px 70px rgba(0,0,0,.55);
+  display:none;
+}
+
+.nav-item:hover .dropdown{
+  display:block;
+}
+
+.dd-title{
+  font-size:12px;
+  font-weight:600;
+  color:rgba(255,255,255,.55);
+  padding:8px 10px 6px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+
+.dd-link{
+  display:block;
+  padding:10px 10px;
+  border-radius:12px;
+  color:rgba(255,255,255,.86);
+  text-decoration:none;
+  font-weight:500;
+  transition:.18s ease;
+}
+
+.dd-link:hover{
+  background:rgba(249,144,166,.14);
+  color:white;
 }
 
 /* =========================
-   HEADLINE GLOW (like your example)
-   - White text with crisp pink glow
-   - Not blurry background, just text glow
+   MAIN
+   ========================= */
+.container{
+  width:100%;
+  padding:150px 64px 90px;
+  text-align:center;
+}
+@media(max-width:760px){
+  .topbar{ padding:18px 14px; }
+  .logo{ left:14px; }
+  .container{ padding:140px 24px 70px; }
+  .nav{ gap:10px; }
+  .nav-item{ font-size:13px; padding:9px 10px; }
+}
+
+/* =========================
+   HEADLINE (less bold + pink outline hint)
    ========================= */
 .welcome{
   margin:0;
   font-family:"Poppins", system-ui, sans-serif;
-  font-weight:600; /* lighter than mega-bold */
-  font-size:clamp(76px, 9.4vw, 210px);
+
+  /* less bold like you asked */
+  font-weight:500;
+
+  font-size:clamp(74px, 9.2vw, 205px);
   letter-spacing:.16em;
   text-transform:uppercase;
   line-height:.86;
+
   color:var(--white);
 
-  /* crisp glow layers (tight + wider) */
+  /* subtle pink outline hint + crisp glow (not blurred) */
   text-shadow:
-    0 1px 0 rgba(0,0,0,.20),
-    0 0 10px rgba(249,144,166,.26),
-    0 0 26px rgba(249,144,166,.20),
-    0 0 60px rgba(249,144,166,.12);
+    -1px 0 rgba(249,144,166,.20),
+     1px 0 rgba(249,144,166,.20),
+     0 -1px rgba(249,144,166,.18),
+     0  1px rgba(249,144,166,.18),
+     0  1px 0 rgba(0,0,0,.25),
+     0  0 10px rgba(249,144,166,.18),
+     0  0 22px rgba(249,144,166,.12);
 }
 
 .lotus{
   margin-top:14px;
   font-family:"Poppins", system-ui, sans-serif;
-  font-weight:600;
-  font-size:clamp(32px, 3.9vw, 80px);
+  font-weight:500;
+  font-size:clamp(32px, 3.9vw, 82px);
   letter-spacing:.22em;
   text-transform:uppercase;
   line-height:1;
-
   color:rgba(255,255,255,.92);
 
   text-shadow:
-    0 1px 0 rgba(0,0,0,.20),
-    0 0 10px rgba(249,144,166,.18),
-    0 0 26px rgba(249,144,166,.12);
+    -1px 0 rgba(249,144,166,.14),
+     1px 0 rgba(249,144,166,.14),
+     0 -1px rgba(249,144,166,.12),
+     0  1px rgba(249,144,166,.12),
+     0  0 10px rgba(249,144,166,.12);
 }
 
-/* underline like your "MANIFESTO" line */
 .underline{
   width:min(560px, 82vw);
   height:3px;
@@ -211,26 +318,22 @@ body{
   opacity:.95;
 }
 
-/* EXACT manifesto-style body */
+/* manifesto-style body text (exact settings) */
 .text{
   margin-top:44px;
   max-width:880px;
   margin-left:auto;
   margin-right:auto;
-
   font-family:"Inter", system-ui, sans-serif;
   font-weight:300;
   font-size:17.5px;
   line-height:1.95;
   letter-spacing:0.15px;
   color:rgba(255,255,255,.68);
-
   text-align:center;
 }
-
 .text p{ margin:0 0 26px; }
 
-/* divider */
 .line{
   margin-top:26px;
   height:1px;
@@ -238,7 +341,7 @@ body{
   opacity:.9;
 }
 
-/* fade in */
+/* fade-in */
 .fade{
   opacity:0;
   transform:translateY(14px);
@@ -247,15 +350,19 @@ body{
 .d1{ animation-delay: 80ms; }
 .d2{ animation-delay: 170ms; }
 .d3{ animation-delay: 260ms; }
-@keyframes in{
-  to{ opacity:1; transform:translateY(0); }
+@keyframes in{ to{ opacity:1; transform:translateY(0); } }
+
+/* lotus cursor while scrolling */
+body.scrolling{
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 64 64'><path fill='%23f990a6' d='M32 10c6 6 9 12 9 18-5-1-10-5-12-9-2 4-7 8-12 9 0-6 3-12 9-18-9 3-16 11-16 21 0 12 10 22 22 22s22-10 22-22c0-10-7-18-16-21z'/></svg>") 12 12, auto;
 }
 
-/* accessibility: reduce motion */
+/* reduce motion */
 @media (prefers-reduced-motion: reduce){
   .surge, .surge.two, .surge.three{ animation:none; }
   .fade{ animation:none; opacity:1; transform:none; }
 }
+
 </style>
 </head>
 
@@ -264,7 +371,6 @@ body{
 <div class="bg">
   <div class="baseGlow"></div>
 
-  <!-- animated surges -->
   <div class="surge s1"></div>
   <div class="surge two s2"></div>
   <div class="surge three s3"></div>
@@ -273,9 +379,43 @@ body{
   <div class="scan"></div>
 </div>
 
-<!-- logo file is next to index.html -->
+<!-- Logo file is next to index.html -->
 <div class="logo">
   <img src="LCP (1).webp" alt="Lotus Customs Logo">
+</div>
+
+<!-- Center-top sections -->
+<div class="topbar">
+  <div class="nav">
+    <div class="nav-item support">
+      <span class="label">Support</span> <span class="chev">⌄</span>
+      <div class="dropdown">
+        <div class="dd-title">Support</div>
+        <a class="dd-link" href="#">Help Centre</a>
+        <a class="dd-link" href="#">Feedback</a>
+        <a class="dd-link" href="#">Submit a Request</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="label">Guidelines</span> <span class="chev">⌄</span>
+      <div class="dropdown">
+        <div class="dd-title">Guidelines</div>
+        <a class="dd-link" href="#">Our Guidelines</a>
+        <a class="dd-link" href="#">Respect</a>
+        <a class="dd-link" href="#">Harassment</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <span class="label">Review</span> <span class="chev">⌄</span>
+      <div class="dropdown">
+        <div class="dd-title">Review</div>
+        <a class="dd-link" href="#">Leave a Review</a>
+        <a class="dd-link" href="#">View Reviews</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <main class="container">
@@ -303,6 +443,18 @@ body{
     <div class="line"></div>
   </div>
 </main>
+
+<script>
+  // Add lotus cursor only while actively scrolling
+  let scrollTimer = null;
+  window.addEventListener("scroll", () => {
+    document.body.classList.add("scrolling");
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      document.body.classList.remove("scrolling");
+    }, 140);
+  });
+</script>
 
 </body>
 </html>
