@@ -507,6 +507,71 @@ body:has(.nav-group:focus-within) .site{
 
       <div class="line"></div>
     </div>
+  <!-- =========================
+     REVIEWS SECTION
+     ========================= -->
+<section id="reviews" style="max-width:1100px;margin:80px auto 0;padding:0 64px;">
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+    <div style="
+      width:28px;
+      height:28px;
+      background:#f990a6;
+      clip-path:path('M16 28C16 28 2 19.5 2 10.8C2 5.8 5.7 2.2 10.6 2.2C13.6 2.2 15.7 3.7 16 5.1C16.3 3.7 18.4 2.2 21.4 2.2C26.3 2.2 30 5.8 30 10.8C30 19.5 16 28 16 28Z');
+    "></div>
+
+    <div style="
+      font-family:Inter;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:20px;
+    ">
+      Our Reviews
+    </div>
+  </div>
+
+  <div id="reviewsGrid" style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+  "></div>
+
+  <div style="margin-top:50px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;">
+    Willing to Leave a Review?
+  </div>
+
+  <div style="
+    margin-top:16px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:18px;
+  ">
+
+    <label>Rating (1–5)</label>
+    <input id="rating" type="number" min="1" max="5" style="width:100%;margin-bottom:12px;">
+
+    <label>What can be improved?</label>
+    <input id="improve" style="width:100%;margin-bottom:12px;">
+
+    <label>Feedback</label>
+    <textarea id="feedback" style="width:100%;margin-bottom:12px;"></textarea>
+
+    <button onclick="submitReview()" style="
+      background:#f990a6;
+      border:none;
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+    ">
+      Submit Review
+    </button>
+
+  </div>
+
+</section>
   </main>
 </div>
 
